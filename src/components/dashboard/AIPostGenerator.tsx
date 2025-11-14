@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -43,6 +44,19 @@ export function AIPostGenerator({ open, onOpenChange }: AIPostGeneratorProps) {
   const [editedTitle, setEditedTitle] = useState('');
   const [editedCategory, setEditedCategory] = useState('');
   const [editedExcerpt, setEditedExcerpt] = useState('');
+
+  // Fetch categories from database
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name, slug')
+        .order('name');
+      if (error) throw error;
+      return data;
+    },
+  });
 
   const handleGenerate = async () => {
     if (!topic.trim()) {
@@ -341,14 +355,14 @@ export function AIPostGenerator({ open, onOpenChange }: AIPostGeneratorProps) {
                 <Label htmlFor="edit-category">Categoria</Label>
                 <Select value={editedCategory} onValueChange={setEditedCategory}>
                   <SelectTrigger className="mt-2">
-                    <SelectValue />
+                    <SelectValue placeholder="Selecione uma categoria" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Usucapião">Usucapião</SelectItem>
-                    <SelectItem value="Regularização">Regularização</SelectItem>
-                    <SelectItem value="Inventário">Inventário</SelectItem>
-                    <SelectItem value="Contratos">Contratos</SelectItem>
-                    <SelectItem value="Consultoria">Consultoria</SelectItem>
+                    {categories?.map((category) => (
+                      <SelectItem key={category.id} value={category.name}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
