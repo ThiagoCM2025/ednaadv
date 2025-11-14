@@ -100,9 +100,17 @@ const Footer = () => {
             <p>
               © {currentYear} Edna Porto Advocacia. Todos os direitos reservados.
             </p>
-            <p>
-              OAB/BA • Direito Imobiliário e Extrajudicial
-            </p>
+            <div className="flex items-center gap-6">
+              <p>
+                OAB/BA • Direito Imobiliário e Extrajudicial
+              </p>
+              <a 
+                href="/login"
+                className="text-xs text-muted/40 hover:text-muted/60 transition-colors"
+              >
+                Admin
+              </a>
+            </div>
           </div>
         </div>
       </div>

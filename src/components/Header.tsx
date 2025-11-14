@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  const isOnBlogPage = location.pathname.startsWith('/blog');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +49,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => {
+              if (isOnBlogPage) {
+                navigate('/');
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
             className="flex flex-col leading-none group"
           >
             <span className={`text-2xl font-serif font-bold transition-colors ${
@@ -73,6 +83,16 @@ const Header = () => {
                 >
                   {item.label}
                 </Link>
+              ) : isOnBlogPage ? (
+                <Link
+                  key={item.href}
+                  to={`/?section=${item.href}`}
+                  className={`font-sans font-medium transition-colors hover:text-secondary ${
+                    isScrolled ? "text-foreground" : "text-background"
+                  }`}
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <button
                   key={item.href}
@@ -87,17 +107,8 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Admin Access & CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Link
-              to="/login"
-              className={`font-sans font-medium transition-colors hover:text-secondary flex items-center gap-2 ${
-                isScrolled ? "text-foreground" : "text-background"
-              }`}
-            >
-              <MessageCircle className="h-4 w-4" />
-              Admin
-            </Link>
+          {/* CTA Button */}
+          <div className="hidden lg:block">
             <Button 
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold"
               onClick={() => window.open(whatsappUrl, '_blank')}
@@ -135,6 +146,15 @@ const Header = () => {
                 >
                   {item.label}
                 </Link>
+              ) : isOnBlogPage ? (
+                <Link
+                  key={item.href}
+                  to={`/?section=${item.href}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-left font-sans font-medium text-foreground hover:text-secondary transition-colors py-2"
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <button
                   key={item.href}
@@ -145,13 +165,6 @@ const Header = () => {
                 </button>
               )
             ))}
-            <Link
-              to="/login"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-left font-sans font-medium text-foreground hover:text-secondary transition-colors py-2 border-t border-border pt-4 mt-2"
-            >
-              🔒 Área Administrativa
-            </Link>
             <Button 
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold mt-2"
               onClick={() => {
