@@ -12,7 +12,29 @@ interface StatsCardProps {
     isPositive: boolean;
   };
   className?: string;
+  variant?: 'views' | 'growth' | 'posts' | 'activity';
 }
+
+const gradientVariants = {
+  views: 'from-blue-500/10 via-blue-500/5 to-transparent',
+  growth: 'from-green-500/10 via-green-500/5 to-transparent',
+  posts: 'from-purple-500/10 via-purple-500/5 to-transparent',
+  activity: 'from-orange-500/10 via-orange-500/5 to-transparent',
+};
+
+const iconBgVariants = {
+  views: 'bg-blue-500/10',
+  growth: 'bg-green-500/10',
+  posts: 'bg-purple-500/10',
+  activity: 'bg-orange-500/10',
+};
+
+const iconColorVariants = {
+  views: 'text-blue-600 dark:text-blue-400',
+  growth: 'text-green-600 dark:text-green-400',
+  posts: 'text-purple-600 dark:text-purple-400',
+  activity: 'text-orange-600 dark:text-orange-400',
+};
 
 export function StatsCard({ 
   title, 
@@ -20,28 +42,44 @@ export function StatsCard({
   icon: Icon, 
   description, 
   trend,
-  className 
+  className,
+  variant = 'views'
 }: StatsCardProps) {
   return (
-    <Card className={cn('hover:shadow-lg transition-shadow', className)}>
+    <Card 
+      className={cn(
+        'relative overflow-hidden transition-all duration-300',
+        'hover:shadow-xl hover:-translate-y-1',
+        'bg-gradient-to-br',
+        gradientVariants[variant],
+        className
+      )}
+    >
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
         </CardTitle>
-        <Icon className="h-4 w-4 text-muted-foreground" />
+        <div className={cn(
+          'p-2 rounded-lg transition-transform duration-300 hover:scale-110',
+          iconBgVariants[variant]
+        )}>
+          <Icon className={cn('h-4 w-4', iconColorVariants[variant])} />
+        </div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-foreground">{value}</div>
+        <div className="text-2xl font-bold text-foreground transition-all duration-300">
+          {value}
+        </div>
         {(description || trend) && (
           <div className="mt-1 flex items-center gap-2">
             {trend && (
               <span
                 className={cn(
-                  'text-xs font-medium',
-                  trend.isPositive ? 'text-green-600' : 'text-red-600'
+                  'text-xs font-medium transition-colors duration-300',
+                  trend.isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
                 )}
               >
-                {trend.isPositive ? '+' : ''}{trend.value}%
+                {trend.isPositive ? '↗' : '↘'} {trend.isPositive ? '+' : ''}{trend.value}%
               </span>
             )}
             {description && (

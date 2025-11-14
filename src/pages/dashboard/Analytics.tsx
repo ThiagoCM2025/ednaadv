@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Eye, FileText, TrendingUp, Activity } from 'lucide-react';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
 import { format, subDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -20,7 +21,7 @@ export default function Analytics() {
   const startDate = subDays(new Date(), parseInt(period));
 
   // Fetch total views
-  const { data: totalViews } = useQuery({
+  const { data: totalViews, isLoading: isLoadingViews } = useQuery({
     queryKey: ['analytics-total-views', period],
     queryFn: async () => {
       const { count, error } = await supabase
@@ -33,7 +34,7 @@ export default function Analytics() {
   });
 
   // Fetch published posts count
-  const { data: publishedCount } = useQuery({
+  const { data: publishedCount, isLoading: isLoadingPosts } = useQuery({
     queryKey: ['analytics-published-count'],
     queryFn: async () => {
       const { count, error } = await supabase
@@ -46,7 +47,7 @@ export default function Analytics() {
   });
 
   // Fetch views by day
-  const { data: viewsByDay } = useQuery({
+  const { data: viewsByDay, isLoading: isLoadingViewsByDay } = useQuery({
     queryKey: ['analytics-views-by-day', period],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -72,7 +73,7 @@ export default function Analytics() {
   });
 
   // Fetch top posts
-  const { data: topPosts } = useQuery({
+  const { data: topPosts, isLoading: isLoadingTopPosts } = useQuery({
     queryKey: ['analytics-top-posts'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -146,92 +147,188 @@ export default function Analytics() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatsCard
-            title="Visualizações Totais"
-            value={totalViews || 0}
-            icon={Eye}
-            description={`Últimos ${period} dias`}
-          />
-          <StatsCard
-            title="Média por Artigo"
-            value={avgViewsPerPost}
-            icon={Activity}
-            description="Views por artigo"
-          />
-          <StatsCard
-            title="Artigos Publicados"
-            value={publishedCount || 0}
-            icon={FileText}
-            description="Total no blog"
-          />
-          <StatsCard
-            title="Taxa de Crescimento"
-            value="12%"
-            icon={TrendingUp}
-            description="vs período anterior"
-            trend={{ value: 12, isPositive: true }}
-          />
+          <div className="animate-fade-in" style={{ animationDelay: '0ms' }}>
+            {isLoadingViews ? (
+              <Card>
+                <CardHeader className="pb-2">
+                  <Skeleton className="h-4 w-32" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-8 w-20 mb-2" />
+                  <Skeleton className="h-3 w-24" />
+                </CardContent>
+              </Card>
+            ) : (
+              <StatsCard
+                title="Visualizações Totais"
+                value={totalViews || 0}
+                icon={Eye}
+                description={`Últimos ${period} dias`}
+                variant="views"
+              />
+            )}
+          </div>
+          <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
+            {isLoadingViews || isLoadingPosts ? (
+              <Card>
+                <CardHeader className="pb-2">
+                  <Skeleton className="h-4 w-32" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-8 w-20 mb-2" />
+                  <Skeleton className="h-3 w-24" />
+                </CardContent>
+              </Card>
+            ) : (
+              <StatsCard
+                title="Média por Artigo"
+                value={avgViewsPerPost}
+                icon={Activity}
+                description="Views por artigo"
+                variant="activity"
+              />
+            )}
+          </div>
+          <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
+            {isLoadingPosts ? (
+              <Card>
+                <CardHeader className="pb-2">
+                  <Skeleton className="h-4 w-32" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-8 w-20 mb-2" />
+                  <Skeleton className="h-3 w-24" />
+                </CardContent>
+              </Card>
+            ) : (
+              <StatsCard
+                title="Artigos Publicados"
+                value={publishedCount || 0}
+                icon={FileText}
+                description="Total no blog"
+                variant="posts"
+              />
+            )}
+          </div>
+          <div className="animate-fade-in" style={{ animationDelay: '300ms' }}>
+            <StatsCard
+              title="Taxa de Crescimento"
+              value="12%"
+              icon={TrendingUp}
+              description="vs período anterior"
+              trend={{ value: 12, isPositive: true }}
+              variant="growth"
+            />
+          </div>
         </div>
 
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Views by Day */}
-          <Card>
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow duration-300" style={{ animationDelay: '400ms' }}>
             <CardHeader>
               <CardTitle>Visualizações por Dia</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={viewsByDay}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-                  <YAxis stroke="hsl(var(--muted-foreground))" />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--card))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px',
-                    }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="views"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth={2}
-                    dot={{ fill: 'hsl(var(--primary))' }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              {isLoadingViewsByDay ? (
+                <div className="space-y-3">
+                  <Skeleton className="h-[300px] w-full" />
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height={300}>
+                  <AreaChart data={viewsByDay}>
+                    <defs>
+                      <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                    <XAxis 
+                      dataKey="date" 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '12px' }}
+                    />
+                    <YAxis 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '12px' }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      }}
+                      cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: '5 5' }}
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="views"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth={3}
+                      fill="url(#colorViews)"
+                      animationDuration={1000}
+                      dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: 'hsl(var(--primary))', strokeWidth: 2 }}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              )}
             </CardContent>
           </Card>
 
           {/* Top Posts */}
-          <Card>
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow duration-300" style={{ animationDelay: '500ms' }}>
             <CardHeader>
               <CardTitle>Artigos Mais Lidos</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={topPosts?.slice(0, 5)} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis type="number" stroke="hsl(var(--muted-foreground))" />
-                  <YAxis
-                    type="category"
-                    dataKey="title"
-                    stroke="hsl(var(--muted-foreground))"
-                    width={150}
-                    tickFormatter={(value) => value.length > 20 ? value.substring(0, 20) + '...' : value}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'hsl(var(--card))',
-                      border: '1px solid hsl(var(--border))',
-                      borderRadius: '8px',
-                    }}
-                  />
-                  <Bar dataKey="total_views" fill="hsl(var(--secondary))" />
-                </BarChart>
-              </ResponsiveContainer>
+              {isLoadingTopPosts ? (
+                <div className="space-y-3">
+                  <Skeleton className="h-[300px] w-full" />
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={topPosts?.slice(0, 5)} layout="vertical">
+                    <defs>
+                      <linearGradient id="colorBar" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="hsl(var(--secondary))" stopOpacity={0.8}/>
+                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                    <XAxis 
+                      type="number" 
+                      stroke="hsl(var(--muted-foreground))"
+                      style={{ fontSize: '12px' }}
+                    />
+                    <YAxis
+                      type="category"
+                      dataKey="title"
+                      stroke="hsl(var(--muted-foreground))"
+                      width={150}
+                      tickFormatter={(value) => value.length > 20 ? value.substring(0, 20) + '...' : value}
+                      style={{ fontSize: '12px' }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--card))',
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                      }}
+                      cursor={{ fill: 'hsl(var(--muted))', opacity: 0.1 }}
+                    />
+                    <Bar 
+                      dataKey="total_views" 
+                      fill="url(#colorBar)"
+                      radius={[0, 8, 8, 0]}
+                      animationDuration={1000}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -239,7 +336,7 @@ export default function Analytics() {
         {/* Category Distribution & Performance Table */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Category Distribution */}
-          <Card>
+          <Card className="animate-fade-in hover:shadow-lg transition-shadow duration-300" style={{ animationDelay: '600ms' }}>
             <CardHeader>
               <CardTitle>Distribuição por Categoria</CardTitle>
             </CardHeader>
@@ -255,9 +352,15 @@ export default function Analytics() {
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="value"
+                    animationBegin={0}
+                    animationDuration={1000}
                   >
                     {categoryDistribution?.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={COLORS[index % COLORS.length]}
+                        className="hover:opacity-80 transition-opacity duration-300 cursor-pointer"
+                      />
                     ))}
                   </Pie>
                   <Tooltip
@@ -265,6 +368,7 @@ export default function Analytics() {
                       backgroundColor: 'hsl(var(--card))',
                       border: '1px solid hsl(var(--border))',
                       borderRadius: '8px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                     }}
                   />
                 </PieChart>
@@ -273,14 +377,14 @@ export default function Analytics() {
           </Card>
 
           {/* Performance Table */}
-          <Card className="lg:col-span-2">
+          <Card className="lg:col-span-2 animate-fade-in hover:shadow-lg transition-shadow duration-300" style={{ animationDelay: '700ms' }}>
             <CardHeader>
               <CardTitle>Performance de Artigos</CardTitle>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="hover:bg-transparent">
                     <TableHead>Artigo</TableHead>
                     <TableHead className="text-center">Views</TableHead>
                     <TableHead className="text-center">Dias com Views</TableHead>
@@ -289,12 +393,18 @@ export default function Analytics() {
                 </TableHeader>
                 <TableBody>
                   {postPerformance?.slice(0, 5).map((post) => (
-                    <TableRow key={post.id}>
+                    <TableRow 
+                      key={post.id}
+                      className="hover:bg-muted/50 transition-colors duration-200 cursor-pointer"
+                    >
                       <TableCell className="font-medium">{post.title}</TableCell>
-                      <TableCell className="text-center">{post.total_views}</TableCell>
+                      <TableCell className="text-center font-semibold text-primary">{post.total_views}</TableCell>
                       <TableCell className="text-center">{post.days_with_views}</TableCell>
                       <TableCell>
-                        <Badge variant={post.status === 'published' ? 'default' : 'secondary'}>
+                        <Badge 
+                          variant={post.status === 'published' ? 'default' : 'secondary'}
+                          className="transition-transform duration-200 hover:scale-105"
+                        >
                           {post.status === 'published' ? 'Publicado' : 'Rascunho'}
                         </Badge>
                       </TableCell>
