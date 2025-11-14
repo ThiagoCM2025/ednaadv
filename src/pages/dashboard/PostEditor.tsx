@@ -184,14 +184,36 @@ export default function PostEditor() {
     });
   };
 
-  const handleSaveDraft = () => {
-    setValue('status', 'draft');
-    handleSubmit(onSubmit)();
+  const handleSaveDraft = async () => {
+    if (!content || content.trim() === '' || content === '<p></p>') {
+      toast.error('O conteúdo do artigo não pode estar vazio');
+      return;
+    }
+    
+    const formData = watch();
+    saveMutation.mutate({
+      ...formData,
+      status: 'draft',
+      content,
+      cover_image_url: coverImage,
+      reading_time: readingTime,
+    });
   };
 
-  const handlePublish = () => {
-    setValue('status', 'published');
-    handleSubmit(onSubmit)();
+  const handlePublish = async () => {
+    if (!content || content.trim() === '' || content === '<p></p>') {
+      toast.error('O conteúdo do artigo não pode estar vazio');
+      return;
+    }
+    
+    const formData = watch();
+    saveMutation.mutate({
+      ...formData,
+      status: 'published',
+      content,
+      cover_image_url: coverImage,
+      reading_time: readingTime,
+    });
   };
 
   if (isLoading) {

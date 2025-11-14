@@ -3,6 +3,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import { EditorToolbar } from './EditorToolbar';
+import { useEffect } from 'react';
 
 interface RichTextEditorProps {
   content: string;
@@ -39,6 +40,13 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
       },
     },
   });
+
+  // Sync content prop with editor instance
+  useEffect(() => {
+    if (editor && content && content !== editor.getHTML()) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
 
   return (
     <div className="border border-border rounded-lg overflow-hidden bg-card">
