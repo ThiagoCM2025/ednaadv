@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Menu, X } from "lucide-react";
 
@@ -27,6 +28,7 @@ const Header = () => {
   const navItems = [
     { label: "Sobre", href: "sobre" },
     { label: "Serviços", href: "servicos" },
+    { label: "Blog", href: "/blog", isLink: true },
     { label: "FAQ", href: "faq" },
     { label: "Contato", href: "contato" },
   ];
@@ -61,15 +63,27 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className={`font-sans font-medium transition-colors hover:text-secondary ${
-                  isScrolled ? "text-foreground" : "text-background"
-                }`}
-              >
-                {item.label}
-              </button>
+              item.isLink ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`font-sans font-medium transition-colors hover:text-secondary ${
+                    isScrolled ? "text-foreground" : "text-background"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  key={item.href}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`font-sans font-medium transition-colors hover:text-secondary ${
+                    isScrolled ? "text-foreground" : "text-background"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              )
             ))}
           </nav>
 
@@ -103,13 +117,24 @@ const Header = () => {
         <div className="lg:hidden bg-background border-t border-border animate-fade-in">
           <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
             {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => scrollToSection(item.href)}
-                className="text-left font-sans font-medium text-foreground hover:text-secondary transition-colors py-2"
-              >
-                {item.label}
-              </button>
+              item.isLink ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-foreground font-medium hover:text-secondary transition-colors py-2"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  key={item.href}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-left font-sans font-medium text-foreground hover:text-secondary transition-colors py-2"
+                >
+                  {item.label}
+                </button>
+              )
             ))}
             <Button 
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold mt-4"
