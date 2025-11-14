@@ -8,9 +8,9 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   isLoading: boolean;
+  isCheckingRole: boolean;
   isAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -20,6 +20,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCheckingRole, setIsCheckingRole] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
@@ -59,6 +60,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const checkAdminRole = async (userId: string) => {
+    setIsCheckingRole(true);
     try {
       const { data, error } = await supabase
         .from('user_roles')
@@ -77,6 +79,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error('Error in checkAdminRole:', error);
       setIsAdmin(false);
+    } finally {
+      setIsCheckingRole(false);
     }
   };
 
@@ -101,49 +105,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    try {
-      const redirectUrl = `${window.location.origin}/`;
-      
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: redirectUrl,
-          data: {
-            full_name: fullName,
-          },
-        },
-      });
-
-      if (error) {
-        toast.error(error.message);
-        return { error };
-      }
-
-      if (data.user) {
-        // Criar perfil
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            id: data.user.id,
-            full_name: fullName,
-            email: email,
-          });
-
-        if (profileError) {
-          console.error('Error creating profile:', profileError);
-        }
-      }
-
-      toast.success('Conta criada com sucesso!');
-      return { error: null };
-    } catch (error) {
-      const err = error as Error;
-      toast.error(err.message);
-      return { error: err };
-    }
-  };
 
   const signOut = async () => {
     try {
@@ -167,9 +128,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         session,
         isLoading,
+        isCheckingRole,
         isAdmin,
         signIn,
-        signUp,
         signOut,
       }}
     >
