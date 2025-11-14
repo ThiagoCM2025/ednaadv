@@ -38,15 +38,9 @@ export default function Login() {
     setIsLoading(true);
 
     if (isSignUp) {
-      const { error } = await signUp(email, password, fullName);
-      if (!error) {
-        navigate('/dashboard');
-      }
+      await signUp(email, password, fullName);
     } else {
-      const { error } = await signIn(email, password);
-      if (!error) {
-        navigate('/dashboard');
-      }
+      await signIn(email, password);
     }
 
     setIsLoading(false);
