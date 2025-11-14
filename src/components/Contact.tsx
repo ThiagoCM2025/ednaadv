@@ -3,7 +3,7 @@ import { Phone, MessageCircle, Mail, MapPin, Instagram } from "lucide-react";
 import contactImage from "@/assets/edna-contact.jpg";
 
 const Contact = () => {
-  const whatsappUrl = "https://wa.me/5571987420684?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta.";
+  const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20agendar%20uma%20consulta.&type=phone_number&app_absent=0";
 
   return (
     <section id="contato" className="py-20 lg:py-32 bg-muted/30 relative overflow-hidden">

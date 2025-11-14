@@ -22,7 +22,7 @@ const Header = () => {
     }
   };
 
-  const whatsappUrl = "https://wa.me/5571987420684?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços.";
+  const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços.&type=phone_number&app_absent=0";
 
   const navItems = [
     { label: "Sobre", href: "sobre" },

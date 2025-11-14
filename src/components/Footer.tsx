@@ -66,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a 
-                  href="https://wa.me/5571987420684"
+                  href="https://api.whatsapp.com/send/?phone=%2B5571987420684&text&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-muted/80 hover:text-secondary transition-colors text-sm group"

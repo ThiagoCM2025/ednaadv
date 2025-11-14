@@ -3,7 +3,7 @@ import { Phone, MessageCircle } from "lucide-react";
 import heroImage from "@/assets/edna-hero.jpg";
 
 const Hero = () => {
-  const whatsappUrl = "https://wa.me/5571987420684?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20advocacia%20imobiliária.";
+  const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20advocacia%20imobiliária.&type=phone_number&app_absent=0";
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-primary">
