@@ -14,16 +14,184 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          author_id: string
+          category: string | null
+          content: string
+          cover_image_url: string | null
+          created_at: string | null
+          excerpt: string | null
+          id: string
+          meta_description: string | null
+          meta_title: string | null
+          published_at: string | null
+          reading_time: number | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author_id: string
+          category?: string | null
+          content: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          excerpt?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          published_at?: string | null
+          reading_time?: number | null
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author_id?: string
+          category?: string | null
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string | null
+          excerpt?: string | null
+          id?: string
+          meta_description?: string | null
+          meta_title?: string | null
+          published_at?: string | null
+          reading_time?: number | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_views: {
+        Row: {
+          id: string
+          ip_address: string | null
+          post_id: string
+          referrer: string | null
+          user_agent: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          id?: string
+          ip_address?: string | null
+          post_id: string
+          referrer?: string | null
+          user_agent?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          id?: string
+          ip_address?: string | null
+          post_id?: string
+          referrer?: string | null
+          user_agent?: string | null
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_views_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_post_stats"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_views_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      blog_post_stats: {
+        Row: {
+          days_with_views: number | null
+          id: string | null
+          published_at: string | null
+          slug: string | null
+          status: string | null
+          title: string | null
+          total_views: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +318,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
