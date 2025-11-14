@@ -11,9 +11,10 @@ import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Plus, MoreVertical, Pencil, ExternalLink, Trash2, FileText } from 'lucide-react';
+import { Plus, MoreVertical, Pencil, ExternalLink, Trash2, FileText, Sparkles } from 'lucide-react';
 import { formatDate } from '@/lib/dateFormat';
 import { toast } from 'sonner';
+import { AIPostGenerator } from '@/components/dashboard/AIPostGenerator';
 
 type StatusFilter = 'all' | 'published' | 'draft';
 
@@ -23,6 +24,7 @@ export default function Posts() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState<string | null>(null);
+  const [aiDialogOpen, setAiDialogOpen] = useState(false);
   const queryClient = useQueryClient();
 
   // Fetch posts
@@ -109,12 +111,18 @@ export default function Posts() {
             <h1 className="text-3xl font-bold text-foreground">Gerenciar Artigos</h1>
             <p className="text-muted-foreground">Gerencie todos os artigos do blog</p>
           </div>
-          <Button asChild>
-            <Link to="/dashboard/posts/new">
-              <Plus className="h-4 w-4 mr-2" />
-              Novo Artigo
-            </Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => setAiDialogOpen(true)}>
+              <Sparkles className="w-4 h-4 mr-2" />
+              Criar com IA
+            </Button>
+            <Button asChild>
+              <Link to="/dashboard/posts/new">
+                <Plus className="h-4 w-4 mr-2" />
+                Novo Artigo
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
@@ -265,17 +273,19 @@ export default function Posts() {
           <AlertDialogHeader>
             <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
             <AlertDialogDescription>
-              Tem certeza que deseja deletar este artigo? Esta ação não pode ser desfeita.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Deletar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </DashboardLayout>
+          Tem certeza que deseja deletar este artigo? Esta ação não pode ser desfeita.
+        </AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+        <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+          Deletar
+        </AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
+
+  <AIPostGenerator open={aiDialogOpen} onOpenChange={setAiDialogOpen} />
+</DashboardLayout>
   );
 }

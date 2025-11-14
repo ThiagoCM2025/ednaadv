@@ -1,4 +1,5 @@
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -104,12 +105,12 @@ const Footer = () => {
               <p>
                 OAB/BA • Direito Imobiliário e Extrajudicial
               </p>
-              <a 
-                href="/login"
+              <Link 
+                to="/login"
                 className="text-xs text-muted/40 hover:text-muted/60 transition-colors"
               >
                 Admin
-              </a>
+              </Link>
             </div>
           </div>
         </div>
