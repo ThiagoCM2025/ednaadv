@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, Shield, Clock, MapPin } from "lucide-react";
 import heroImage from "@/assets/edna-hero.jpg";
 
 const Hero = () => {
@@ -52,10 +52,26 @@ const Hero = () => {
           </div>
 
           <div className="mt-12 pt-8 border-t border-background/20">
-            <div className="flex justify-center">
-              <div className="text-center group cursor-default">
-                <div className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-2 group-hover:scale-110 transition-transform duration-300">15+</div>
-                <div className="text-sm md:text-base text-muted/80 font-sans">Anos de Experiência</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
+              <div className="flex flex-col items-center text-center group animate-fade-in-up">
+                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <Shield className="h-6 w-6 text-secondary" />
+                </div>
+                <div className="text-sm font-heading font-semibold text-background">Segurança Jurídica</div>
+              </div>
+              
+              <div className="flex flex-col items-center text-center group animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <Clock className="h-6 w-6 text-secondary" />
+                </div>
+                <div className="text-sm font-heading font-semibold text-background">Resposta Rápida</div>
+              </div>
+              
+              <div className="flex flex-col items-center text-center group animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <MapPin className="h-6 w-6 text-secondary" />
+                </div>
+                <div className="text-sm font-heading font-semibold text-background">Salvador e Região</div>
               </div>
             </div>
           </div>
