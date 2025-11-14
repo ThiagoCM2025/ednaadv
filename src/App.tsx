@@ -8,6 +8,9 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Posts from "./pages/dashboard/Posts";
+import PostEditor from "./pages/dashboard/PostEditor";
+import Analytics from "./pages/dashboard/Analytics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +26,10 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<ProtectedRoute requireAdmin><Dashboard /></ProtectedRoute>} />
+            <Route path="/dashboard/posts" element={<ProtectedRoute requireAdmin><Posts /></ProtectedRoute>} />
+            <Route path="/dashboard/posts/new" element={<ProtectedRoute requireAdmin><PostEditor /></ProtectedRoute>} />
+            <Route path="/dashboard/posts/edit/:id" element={<ProtectedRoute requireAdmin><PostEditor /></ProtectedRoute>} />
+            <Route path="/dashboard/analytics" element={<ProtectedRoute requireAdmin><Analytics /></ProtectedRoute>} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
