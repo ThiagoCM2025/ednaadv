@@ -38,10 +38,10 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant group"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant hover-lift group"
               onClick={() => window.open(whatsappUrl, '_blank')}
             >
-              <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform" />
               Agende sua Consulta
             </Button>
             
@@ -52,18 +52,10 @@ const Hero = () => {
           </div>
 
           <div className="mt-12 pt-8 border-t border-background/20">
-            <div className="grid grid-cols-3 gap-6 md:gap-12">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-serif font-bold text-secondary mb-2">15+</div>
-                <div className="text-xs md:text-sm text-muted/80 font-sans">Anos de Experiência</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-serif font-bold text-secondary mb-2">500+</div>
-                <div className="text-xs md:text-sm text-muted/80 font-sans">Casos Resolvidos</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-serif font-bold text-secondary mb-2">98%</div>
-                <div className="text-xs md:text-sm text-muted/80 font-sans">Taxa de Sucesso</div>
+            <div className="flex justify-center">
+              <div className="text-center group cursor-default">
+                <div className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-2 group-hover:scale-110 transition-transform duration-300">15+</div>
+                <div className="text-sm md:text-base text-muted/80 font-sans">Anos de Experiência</div>
               </div>
             </div>
           </div>

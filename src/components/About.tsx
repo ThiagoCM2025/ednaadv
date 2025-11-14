@@ -30,12 +30,12 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image Side */}
-          <div className="relative order-2 lg:order-1 animate-fade-in">
-            <div className="relative rounded-2xl overflow-hidden shadow-elegant">
+          <div className="relative order-2 lg:order-1 animate-fade-in-left">
+            <div className="relative rounded-2xl overflow-hidden shadow-elegant hover-lift group">
               <img
                 src={aboutImage}
                 alt="Dra. Edna Porto - Advogada especialista em direito imobiliário"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
             </div>
@@ -45,7 +45,7 @@ const About = () => {
           </div>
 
           {/* Content Side */}
-          <div className="order-1 lg:order-2 animate-slide-up">
+          <div className="order-1 lg:order-2 animate-fade-in-right">
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-heading font-bold text-sm rounded-full mb-6">
               SOBRE MIM
             </span>
@@ -73,11 +73,12 @@ const About = () => {
               {qualities.map((quality, index) => (
                 <div 
                   key={index}
-                  className="flex gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all duration-300 group"
+                  className="flex gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all duration-300 group cursor-pointer animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                      <quality.icon className="w-6 h-6 text-accent" />
+                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-300">
+                      <quality.icon className="w-6 h-6 text-accent group-hover:rotate-12 transition-transform" />
                     </div>
                   </div>
                   <div>

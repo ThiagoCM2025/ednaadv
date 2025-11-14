@@ -8,8 +8,8 @@ import {
 const FAQ = () => {
   const faqs = [
     {
-      question: "Quanto tempo leva para regularizar um imóvel?",
-      answer: "O prazo varia conforme a complexidade do caso. Usucapião extrajudicial pode levar de 6 a 12 meses, enquanto regularizações mais simples podem ser concluídas em 2 a 4 meses. Após análise inicial, apresento um cronograma detalhado."
+      question: "Como funciona o processo de regularização de imóvel?",
+      answer: "O processo de regularização varia significativamente conforme a complexidade de cada caso. Após uma análise detalhada da documentação e situação do imóvel, apresento as etapas necessárias e uma estimativa realista de tempo. Fatores como tipo de regularização, pendências documentais e necessidade de judicialização influenciam diretamente no cronograma."
     },
     {
       question: "Quais documentos são necessários para iniciar?",
@@ -51,13 +51,14 @@ const FAQ = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto animate-slide-up">
+        <div className="max-w-4xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="border border-border rounded-xl px-6 bg-background shadow-card hover:shadow-elegant transition-shadow"
+                className="border border-border rounded-xl px-6 bg-background shadow-card hover-lift hover-glow animate-fade-in-up"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <AccordionTrigger className="text-left font-heading font-bold text-foreground hover:text-secondary hover:no-underline py-6">
                   {faq.question}

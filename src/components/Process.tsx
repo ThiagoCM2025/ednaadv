@@ -54,7 +54,7 @@ const Process = () => {
           {steps.map((step, index) => (
             <div 
               key={index}
-              className="relative animate-slide-up group"
+              className="relative animate-fade-in-up group"
               style={{ animationDelay: `${index * 150}ms` }}
             >
               {/* Connecting line (hidden on mobile, visible on lg+) */}
@@ -62,13 +62,13 @@ const Process = () => {
                 <div className="hidden lg:block absolute top-16 left-[60%] w-full h-0.5 bg-gradient-to-r from-accent/40 to-secondary/40" />
               )}
               
-              <div className="relative bg-background rounded-2xl p-8 shadow-card hover:shadow-elegant transition-all duration-300 border border-border/50">
+              <div className="relative bg-background rounded-2xl p-8 shadow-card hover-lift border border-border/50 cursor-pointer">
                 {/* Number badge */}
-                <div className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-secondary text-secondary-foreground font-heading font-bold text-lg flex items-center justify-center shadow-lg">
+                <div className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-secondary text-secondary-foreground font-heading font-bold text-lg flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                   {step.number}
                 </div>
                 
-                <div className="w-16 h-16 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
+                <div className="w-16 h-16 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:scale-110 transition-all duration-300 icon-bounce">
                   <step.icon className="w-8 h-8 text-accent group-hover:text-accent-foreground transition-colors" />
                 </div>
                 
