@@ -87,8 +87,17 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* Admin Access & CTA Buttons */}
+          <div className="hidden lg:flex items-center gap-4">
+            <Link
+              to="/login"
+              className={`font-sans font-medium transition-colors hover:text-secondary flex items-center gap-2 ${
+                isScrolled ? "text-foreground" : "text-background"
+              }`}
+            >
+              <MessageCircle className="h-4 w-4" />
+              Admin
+            </Link>
             <Button 
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold"
               onClick={() => window.open(whatsappUrl, '_blank')}
@@ -136,8 +145,15 @@ const Header = () => {
                 </button>
               )
             ))}
+            <Link
+              to="/login"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-left font-sans font-medium text-foreground hover:text-secondary transition-colors py-2 border-t border-border pt-4 mt-2"
+            >
+              🔒 Área Administrativa
+            </Link>
             <Button 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold mt-4"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold mt-2"
               onClick={() => {
                 window.open(whatsappUrl, '_blank');
                 setIsMobileMenuOpen(false);
