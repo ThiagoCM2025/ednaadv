@@ -1,6 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { 
   LayoutDashboard, 
   FileText, 
@@ -9,10 +12,13 @@ import {
   LogOut,
   Menu,
   X,
-  Tag
+  Tag,
+  Key
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -22,6 +28,47 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const { signOut, user } = useAuth();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (newPassword !== confirmNewPassword) {
+      toast.error('As senhas não coincidem');
+      return;
+    }
+    
+    if (newPassword.length < 6) {
+      toast.error('A senha deve ter no mínimo 6 caracteres');
+      return;
+    }
+
+    setIsChangingPassword(true);
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword
+      });
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success('Senha alterada com sucesso!');
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmNewPassword('');
+        setIsChangePasswordOpen(false);
+      }
+    } catch (error) {
+      toast.error('Erro ao alterar senha');
+    } finally {
+      setIsChangingPassword(false);
+    }
+  };
 
   const navItems = [
     { label: 'Visão Geral', href: '/dashboard', icon: LayoutDashboard },
@@ -120,11 +167,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             })}
           </nav>
 
-          <div className="p-4 border-t">
-            <div className="mb-4 px-4">
+          <div className="p-4 border-t space-y-2">
+            <div className="px-4 mb-2">
               <p className="text-sm font-medium text-foreground">{user?.email}</p>
               <p className="text-xs text-muted-foreground">Administrador</p>
             </div>
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-muted-foreground hover:text-foreground"
+              onClick={() => setIsChangePasswordOpen(true)}
+            >
+              <Key className="w-5 h-5 mr-3" />
+              Alterar Senha
+            </Button>
             <Button
               variant="ghost"
               className="w-full justify-start text-muted-foreground hover:text-foreground"
@@ -143,6 +198,68 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
         </main>
       </div>
+
+      <Dialog open={isChangePasswordOpen} onOpenChange={setIsChangePasswordOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Alterar Senha</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleChangePassword} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="currentPassword">Senha Atual</Label>
+              <Input
+                id="currentPassword"
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                required
+                disabled={isChangingPassword}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">Nova Senha</Label>
+              <Input
+                id="newPassword"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+                minLength={6}
+                disabled={isChangingPassword}
+              />
+              <p className="text-xs text-muted-foreground">Mínimo 6 caracteres</p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="confirmNewPassword">Confirmar Nova Senha</Label>
+              <Input
+                id="confirmNewPassword"
+                type="password"
+                value={confirmNewPassword}
+                onChange={(e) => setConfirmNewPassword(e.target.value)}
+                required
+                minLength={6}
+                disabled={isChangingPassword}
+              />
+            </div>
+
+            <div className="flex gap-2 justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsChangePasswordOpen(false)}
+                disabled={isChangingPassword}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit" disabled={isChangingPassword}>
+                {isChangingPassword ? 'Alterando...' : 'Alterar Senha'}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
