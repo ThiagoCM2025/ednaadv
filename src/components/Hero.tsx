@@ -45,15 +45,10 @@ const Hero = () => {
               Agende sua Consulta
             </Button>
             
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="bg-transparent border-2 border-background text-background hover:bg-background hover:text-primary font-heading font-bold text-base h-14 px-8"
-              onClick={() => window.open(`tel:5571987420684`, '_blank')}
-            >
-              <Phone className="mr-2 h-5 w-5" />
+            <div className="inline-flex items-center justify-center gap-2 h-14 px-8 rounded-md border-2 border-background text-background font-heading font-bold text-base">
+              <Phone className="h-5 w-5" />
               (71) 98742-0684
-            </Button>
+            </div>
           </div>
 
           <div className="mt-12 pt-8 border-t border-background/20">
