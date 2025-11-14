@@ -25,7 +25,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const navItems = [
     { label: 'Visão Geral', href: '/dashboard', icon: LayoutDashboard },
     { label: 'Artigos', href: '/dashboard/posts', icon: FileText },
-    { label: 'Novo Artigo', href: '/dashboard/posts/new', icon: PlusCircle },
     { label: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
   ];
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -19,7 +19,7 @@ import { ImageUpload } from '@/components/upload/ImageUpload';
 import { slugify } from '@/lib/slugify';
 import { calculateReadingTime } from '@/lib/readingTime';
 import { toast } from 'sonner';
-import { ArrowLeft, Save, Send } from 'lucide-react';
+import { ArrowLeft, Save, Send, Sparkles } from 'lucide-react';
 
 const postSchema = z.object({
   title: z.string().min(3, 'Título deve ter no mínimo 3 caracteres').max(200),
@@ -38,10 +38,12 @@ type PostFormData = z.infer<typeof postSchema>;
 export default function PostEditor() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const [content, setContent] = useState('');
   const [coverImage, setCoverImage] = useState<string | undefined>();
   const [readingTime, setReadingTime] = useState(0);
+  const [isAIGenerated, setIsAIGenerated] = useState(false);
 
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<PostFormData>({
     resolver: zodResolver(postSchema),
@@ -84,6 +86,22 @@ export default function PostEditor() {
     },
     enabled: !!id,
   });
+
+  // Load AI-generated data from navigation state
+  useEffect(() => {
+    const state = location.state as any;
+    if (state?.aiGenerated) {
+      setIsAIGenerated(true);
+      setValue('title', state.title);
+      setValue('slug', state.slug);
+      setValue('excerpt', state.excerpt || '');
+      setValue('category', state.category || '');
+      setValue('meta_title', state.metaTitle || '');
+      setValue('meta_description', state.metaDescription || '');
+      setContent(state.content);
+      setCoverImage(state.coverImage);
+    }
+  }, [location.state, setValue]);
 
   // Update form when data is loaded
   useEffect(() => {
@@ -182,10 +200,16 @@ export default function PostEditor() {
             <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/posts')}>
               <ArrowLeft className="h-4 w-4" />
             </Button>
-            <div>
+            <div className="flex items-center gap-3">
               <h1 className="text-3xl font-bold text-foreground">
                 {id ? 'Editar Artigo' : 'Novo Artigo'}
               </h1>
+              {isAIGenerated && (
+                <Badge variant="secondary" className="gap-1">
+                  <Sparkles className="w-3 h-3" />
+                  Gerado com IA
+                </Badge>
+              )}
             </div>
           </div>
           <div className="flex gap-2">
