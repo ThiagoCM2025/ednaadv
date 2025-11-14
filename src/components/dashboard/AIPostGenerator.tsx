@@ -378,6 +378,28 @@ export function AIPostGenerator({ open, onOpenChange }: AIPostGeneratorProps) {
                 />
               </div>
 
+              <div>
+                <Label>Prévia do Conteúdo</Label>
+                <div 
+                  className="mt-2 border rounded-lg p-4 max-h-[400px] overflow-y-auto bg-muted/30
+                    prose prose-sm max-w-none
+                    prose-headings:text-foreground prose-headings:font-bold
+                    prose-h2:text-xl prose-h2:mt-6 prose-h2:mb-3
+                    prose-h3:text-lg prose-h3:mt-4 prose-h3:mb-2
+                    prose-p:text-foreground prose-p:leading-relaxed prose-p:mb-3
+                    prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                    prose-strong:text-foreground prose-strong:font-semibold
+                    prose-ul:my-3 prose-ul:list-disc prose-ul:pl-6
+                    prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-6
+                    prose-li:text-foreground prose-li:mb-1
+                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-4 prose-blockquote:italic"
+                  dangerouslySetInnerHTML={{ __html: generatedArticle.content }}
+                />
+                <p className="text-xs text-muted-foreground mt-2">
+                  ℹ️ Esta é uma prévia do conteúdo gerado. Você pode editá-lo clicando em "Editar".
+                </p>
+              </div>
+
               <div className="flex gap-2">
                 <Button
                   variant="outline"
