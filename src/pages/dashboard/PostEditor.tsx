@@ -14,12 +14,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RichTextEditor } from '@/components/editor/RichTextEditor';
+import { PostPreview } from '@/components/editor/PostPreview';
 import { ImageUpload } from '@/components/upload/ImageUpload';
 import { slugify } from '@/lib/slugify';
 import { calculateReadingTime } from '@/lib/readingTime';
 import { toast } from 'sonner';
-import { ArrowLeft, Save, Send, Sparkles } from 'lucide-react';
+import { ArrowLeft, Save, Send, Sparkles, Eye, Edit } from 'lucide-react';
 
 const postSchema = z.object({
   title: z.string().min(3, 'Título deve ter no mínimo 3 caracteres').max(200),
@@ -44,6 +46,7 @@ export default function PostEditor() {
   const [coverImage, setCoverImage] = useState<string | undefined>();
   const [readingTime, setReadingTime] = useState(0);
   const [isAIGenerated, setIsAIGenerated] = useState(false);
+  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
 
   // Fetch categories from database
   const { data: categories } = useQuery({
@@ -259,157 +262,168 @@ export default function PostEditor() {
           </div>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left Column - Main Content */}
-            <div className="lg:col-span-2 space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="title">Título *</Label>
-                <Input
-                  id="title"
-                  {...register('title')}
-                  placeholder="Digite o título do artigo"
-                  className="text-2xl font-bold"
-                />
-                {errors.title && (
-                  <p className="text-sm text-destructive">{errors.title.message}</p>
-                )}
-              </div>
+        {/* Tabs for Edit/Preview */}
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'edit' | 'preview')} className="w-full">
+          <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
+            <TabsTrigger value="edit" className="flex items-center gap-2">
+              <Edit className="h-4 w-4" />
+              Editar
+            </TabsTrigger>
+            <TabsTrigger value="preview" className="flex items-center gap-2">
+              <Eye className="h-4 w-4" />
+              Prévia
+            </TabsTrigger>
+          </TabsList>
 
-              <div className="space-y-2">
-                <Label htmlFor="slug">Slug (URL) *</Label>
-                <Input
-                  id="slug"
-                  {...register('slug')}
-                  placeholder="url-do-artigo"
-                />
-                {errors.slug && (
-                  <p className="text-sm text-destructive">{errors.slug.message}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="excerpt">Resumo</Label>
-                <Textarea
-                  id="excerpt"
-                  {...register('excerpt')}
-                  placeholder="Breve resumo do artigo (até 300 caracteres)"
-                  rows={3}
-                />
-                {errors.excerpt && (
-                  <p className="text-sm text-destructive">{errors.excerpt.message}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label>Conteúdo *</Label>
-                <RichTextEditor content={content} onChange={setContent} />
-                {errors.content && (
-                  <p className="text-sm text-destructive">{errors.content.message}</p>
-                )}
-              </div>
-            </div>
-
-            {/* Right Column - Settings */}
-            <div className="space-y-6">
-              {/* Cover Image */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Imagem de Capa</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ImageUpload
-                    currentImage={coverImage}
-                    onUploadComplete={setCoverImage}
-                    onRemove={() => setCoverImage(undefined)}
-                  />
-                </CardContent>
-              </Card>
-
-              {/* Settings */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Configurações</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+          <TabsContent value="edit" className="mt-0">
+            {/* Form */}
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Left Column - Main Content */}
+                <div className="lg:col-span-2 space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="category">Categoria *</Label>
-                    <Select
-                      value={watch('category')}
-                      onValueChange={(value) => setValue('category', value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione uma categoria" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {categories?.map((category) => (
-                          <SelectItem key={category.id} value={category.name}>
-                            {category.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {errors.category && (
-                      <p className="text-sm text-destructive">{errors.category.message}</p>
+                    <Label htmlFor="title">Título *</Label>
+                    <Input
+                      id="title"
+                      {...register('title')}
+                      placeholder="Digite o título do artigo"
+                      className="text-2xl font-bold"
+                    />
+                    {errors.title && (
+                      <p className="text-sm text-destructive">{errors.title.message}</p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="meta_title">Meta Title (SEO)</Label>
+                    <Label htmlFor="slug">Slug (URL) *</Label>
                     <Input
-                      id="meta_title"
-                      {...register('meta_title')}
-                      placeholder="Título para mecanismos de busca"
-                      maxLength={60}
+                      id="slug"
+                      {...register('slug')}
+                      placeholder="url-do-artigo"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      {watch('meta_title')?.length || 0}/60 caracteres
-                    </p>
+                    {errors.slug && (
+                      <p className="text-sm text-destructive">{errors.slug.message}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="meta_description">Meta Description (SEO)</Label>
+                    <Label htmlFor="excerpt">Resumo</Label>
                     <Textarea
-                      id="meta_description"
-                      {...register('meta_description')}
-                      placeholder="Descrição para mecanismos de busca"
-                      maxLength={160}
+                      id="excerpt"
+                      {...register('excerpt')}
+                      placeholder="Breve resumo do artigo (até 300 caracteres)"
                       rows={3}
                     />
-                    <p className="text-xs text-muted-foreground">
-                      {watch('meta_description')?.length || 0}/160 caracteres
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Publishing */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Publicação</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label className="text-sm text-muted-foreground">Status</Label>
-                    <div className="mt-2">
-                      <Badge variant={status === 'published' ? 'default' : 'secondary'}>
-                        {status === 'published' ? 'Publicado' : 'Rascunho'}
-                      </Badge>
-                    </div>
+                    {errors.excerpt && (
+                      <p className="text-sm text-destructive">{errors.excerpt.message}</p>
+                    )}
                   </div>
 
-                  <div>
-                    <Label className="text-sm text-muted-foreground">Tempo de Leitura</Label>
-                    <p className="mt-1 text-sm font-medium">
-                      {readingTime} {readingTime === 1 ? 'minuto' : 'minutos'}
-                    </p>
+                  <div className="space-y-2">
+                    <Label>Conteúdo *</Label>
+                    <RichTextEditor content={content} onChange={setContent} />
+                    {errors.content && (
+                      <p className="text-sm text-destructive">{errors.content.message}</p>
+                    )}
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </form>
+                </div>
+
+                {/* Right Column - Settings */}
+                <div className="space-y-6">
+                  {/* Cover Image */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Imagem de Capa</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ImageUpload
+                        currentImage={coverImage}
+                        onUploadComplete={setCoverImage}
+                        onRemove={() => setCoverImage(undefined)}
+                      />
+                    </CardContent>
+                  </Card>
+
+                  {/* Settings */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Configurações</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="category">Categoria *</Label>
+                        <Select
+                          value={watch('category')}
+                          onValueChange={(value) => setValue('category', value)}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione uma categoria" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {categories?.map((category) => (
+                              <SelectItem key={category.id} value={category.name}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.category && (
+                          <p className="text-sm text-destructive">{errors.category.message}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="meta_title">Meta Title (SEO)</Label>
+                        <Input
+                          id="meta_title"
+                          {...register('meta_title')}
+                          placeholder="Título para SEO"
+                          maxLength={60}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="meta_description">Meta Description (SEO)</Label>
+                        <Textarea
+                          id="meta_description"
+                          {...register('meta_description')}
+                          placeholder="Descrição para SEO"
+                          rows={3}
+                          maxLength={160}
+                        />
+                      </div>
+
+                      <div className="pt-4 border-t space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">Status</span>
+                          <Badge variant={status === 'published' ? 'default' : 'secondary'}>
+                            {status === 'published' ? 'Publicado' : 'Rascunho'}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">Tempo de Leitura</span>
+                          <span className="text-sm text-muted-foreground">{readingTime} min</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </form>
+          </TabsContent>
+
+          <TabsContent value="preview" className="mt-0">
+            <PostPreview
+              title={watch('title') || ''}
+              excerpt={watch('excerpt') || ''}
+              content={content}
+              coverImage={coverImage}
+              category={categories?.find(c => c.name === watch('category'))?.name}
+              readingTime={readingTime}
+              publishedAt={new Date().toISOString()}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </DashboardLayout>
   );
