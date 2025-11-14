@@ -45,6 +45,19 @@ export default function PostEditor() {
   const [readingTime, setReadingTime] = useState(0);
   const [isAIGenerated, setIsAIGenerated] = useState(false);
 
+  // Fetch categories from database
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name, slug')
+        .order('name');
+      if (error) throw error;
+      return data;
+    },
+  });
+
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<PostFormData>({
     resolver: zodResolver(postSchema),
     defaultValues: {
@@ -308,9 +321,11 @@ export default function PostEditor() {
                         <SelectValue placeholder="Selecione uma categoria" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Direito Imobiliário">Direito Imobiliário</SelectItem>
-                        <SelectItem value="Dicas Jurídicas">Dicas Jurídicas</SelectItem>
-                        <SelectItem value="Legislação">Legislação</SelectItem>
+                        {categories?.map((category) => (
+                          <SelectItem key={category.id} value={category.name}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     {errors.category && (

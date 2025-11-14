@@ -8,7 +8,8 @@ import {
   BarChart3, 
   LogOut,
   Menu,
-  X
+  X,
+  Tag
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const navItems = [
     { label: 'Visão Geral', href: '/dashboard', icon: LayoutDashboard },
     { label: 'Artigos', href: '/dashboard/posts', icon: FileText },
+    { label: 'Categorias', href: '/dashboard/categories', icon: Tag },
     { label: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
   ];
 

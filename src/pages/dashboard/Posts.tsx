@@ -27,6 +27,19 @@ export default function Posts() {
   const [aiDialogOpen, setAiDialogOpen] = useState(false);
   const queryClient = useQueryClient();
 
+  // Fetch categories
+  const { data: categories } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name')
+        .order('name');
+      if (error) throw error;
+      return data;
+    },
+  });
+
   // Fetch posts
   const { data: posts, isLoading } = useQuery({
     queryKey: ['blog-posts', statusFilter, categoryFilter, search],
@@ -149,9 +162,11 @@ export default function Posts() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Todas</SelectItem>
-              <SelectItem value="Direito Imobiliário">Direito Imobiliário</SelectItem>
-              <SelectItem value="Dicas Jurídicas">Dicas Jurídicas</SelectItem>
-              <SelectItem value="Legislação">Legislação</SelectItem>
+              {categories?.map((category) => (
+                <SelectItem key={category.id} value={category.name}>
+                  {category.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
