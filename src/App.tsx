@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard";
 import Posts from "./pages/dashboard/Posts";
 import PostEditor from "./pages/dashboard/PostEditor";
 import Analytics from "./pages/dashboard/Analytics";
+import BlogList from "./pages/BlogList";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/dashboard" element={<ProtectedRoute requireAdmin><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard/posts" element={<ProtectedRoute requireAdmin><Posts /></ProtectedRoute>} />
             <Route path="/dashboard/posts/new" element={<ProtectedRoute requireAdmin><PostEditor /></ProtectedRoute>} />
