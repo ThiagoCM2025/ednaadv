@@ -55,7 +55,7 @@ export default function BlogPost() {
       const trackView = async () => {
         try {
           await supabase.functions.invoke('track-blog-view', {
-            body: { postId: post.id },
+            body: { post_id: post.id },
           });
         } catch (error) {
           console.error('Error tracking view:', error);
