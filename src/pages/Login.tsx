@@ -136,7 +136,7 @@ export default function Login() {
                 : (isSignUp ? 'Criar Conta' : 'Entrar')
               }
             </Button>
-            <div className="text-center">
+            <div className="text-center space-y-2">
               <Button
                 type="button"
                 variant="link"
@@ -148,6 +148,15 @@ export default function Login() {
                   ? 'Já tem uma conta? Faça login' 
                   : 'Não tem uma conta? Cadastre-se'
                 }
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                onClick={() => navigate('/')}
+                disabled={isLoading}
+              >
+                Voltar para o site
               </Button>
             </div>
           </form>
