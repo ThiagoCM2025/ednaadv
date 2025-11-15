@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Menu, X } from "lucide-react";
-import logoBranco from "@/assets/logo-branco.png";
-import logoDourado from "@/assets/logo-dourado.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,11 +58,18 @@ const Header = () => {
             }}
             className="flex items-center group"
           >
-            <img 
-              src={isScrolled ? logoDourado : logoBranco}
-              alt="Edna Porto - Advocacia Imobiliária"
-              className="h-10 md:h-14 w-auto transition-opacity duration-500 hover:opacity-90"
-            />
+            <div className="flex flex-col leading-none items-start transition-colors duration-500">
+              <span className={`font-heading font-bold text-lg md:text-2xl tracking-tight transition-colors duration-500 ${
+                isScrolled ? "text-foreground" : "text-background"
+              }`}>
+                Edna Porto
+              </span>
+              <span className={`uppercase text-[10px] md:text-xs tracking-[0.2em] mt-0.5 transition-colors duration-500 ${
+                isScrolled ? "text-muted-foreground" : "text-background/80"
+              }`}>
+                Advocacia Imobiliária
+              </span>
+            </div>
           </button>
 
           {/* Desktop Navigation */}
