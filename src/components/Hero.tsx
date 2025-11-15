@@ -1,17 +1,31 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Shield, Clock, MapPin } from "lucide-react";
 import heroImage from "@/assets/edna-hero.jpg";
 
 const Hero = () => {
+  const [scrollY, setScrollY] = useState(0);
   const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20advocacia%20imobiliária.&type=phone_number&app_absent=0";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-[center_top_20%] bg-no-repeat opacity-60"
-          style={{ backgroundImage: `url(${heroImage})` }}
+          className="absolute inset-0 bg-cover bg-[center_top_20%] bg-no-repeat opacity-60 transition-transform duration-100 ease-out"
+          style={{ 
+            backgroundImage: `url(${heroImage})`,
+            transform: `translateY(${scrollY * 0.5}px) scale(1.1)`
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-accent/90" />
       </div>
