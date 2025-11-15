@@ -1,7 +1,10 @@
 import { Shield, Scale, Heart, Award } from "lucide-react";
 import aboutImage from "@/assets/edna-about.jpg";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const About = () => {
+  const { elementRef: imageRef, isVisible: imageVisible } = useScrollReveal();
+  const { elementRef: contentRef, isVisible: contentVisible } = useScrollReveal();
   const qualities = [
     {
       icon: Shield,
@@ -30,7 +33,14 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image Side */}
-          <div className="relative order-2 lg:order-1 animate-fade-in-left">
+          <div 
+            ref={imageRef}
+            className={`relative order-2 lg:order-1 transition-all duration-1000 ${
+              imageVisible 
+                ? "opacity-100 translate-x-0" 
+                : "opacity-0 -translate-x-12"
+            }`}
+          >
             <div className="relative rounded-2xl overflow-hidden shadow-elegant hover-lift group">
               <img
                 src={aboutImage}
@@ -45,7 +55,14 @@ const About = () => {
           </div>
 
           {/* Content Side */}
-          <div className="order-1 lg:order-2 animate-fade-in-right">
+          <div 
+            ref={contentRef}
+            className={`order-1 lg:order-2 transition-all duration-1000 delay-200 ${
+              contentVisible 
+                ? "opacity-100 translate-x-0" 
+                : "opacity-0 translate-x-12"
+            }`}
+          >
             <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-heading font-bold text-sm rounded-full mb-6">
               SOBRE MIM
             </span>
@@ -73,8 +90,14 @@ const About = () => {
               {qualities.map((quality, index) => (
                 <div 
                   key={index}
-                  className="flex gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all duration-300 group cursor-pointer animate-fade-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className={`flex gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all duration-700 group cursor-pointer ${
+                    contentVisible 
+                      ? "opacity-100 translate-y-0" 
+                      : "opacity-0 translate-y-8"
+                  }`}
+                  style={{ 
+                    transitionDelay: contentVisible ? `${400 + index * 150}ms` : '0ms'
+                  }}
                 >
                   <div className="flex-shrink-0">
                     <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-300">
