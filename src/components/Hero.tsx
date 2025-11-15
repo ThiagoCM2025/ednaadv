@@ -52,7 +52,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant hover-lift group"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant hover-lift btn-ripple btn-glow-pulse group"
               onClick={() => window.open(whatsappUrl, '_blank')}
             >
               <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform" />
