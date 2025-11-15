@@ -5,6 +5,7 @@ import heroImage from "@/assets/edna-hero.jpg";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
+  const [visibleWords, setVisibleWords] = useState(0);
   const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20advocacia%20imobiliária.&type=phone_number&app_absent=0";
 
   useEffect(() => {
@@ -14,6 +15,22 @@ const Hero = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const words = ["Seu", "Imóvel", "Regularizado", "de", "Forma", "Rápida", "e", "Segura"];
+    let currentIndex = 0;
+    
+    const interval = setInterval(() => {
+      if (currentIndex < words.length) {
+        setVisibleWords(currentIndex + 1);
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -40,8 +57,44 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-background mb-6 leading-tight">
-            Seu Imóvel Regularizado de Forma{" "}
-            <span className="text-secondary">Rápida e Segura</span>
+            {["Seu", "Imóvel", "Regularizado", "de", "Forma"].map((word, index) => (
+              <span
+                key={index}
+                className={`inline-block transition-all duration-700 ${
+                  index < visibleWords
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                {word}{" "}
+              </span>
+            ))}
+            <br />
+            <span
+              className={`inline-block text-secondary transition-all duration-700 ${
+                visibleWords >= 6 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{ transitionDelay: "600ms" }}
+            >
+              Rápida{" "}
+            </span>
+            <span
+              className={`inline-block text-secondary transition-all duration-700 ${
+                visibleWords >= 7 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{ transitionDelay: "700ms" }}
+            >
+              e{" "}
+            </span>
+            <span
+              className={`inline-block text-secondary transition-all duration-700 ${
+                visibleWords >= 8 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{ transitionDelay: "800ms" }}
+            >
+              Segura
+            </span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted/90 mb-8 leading-relaxed max-w-2xl">
