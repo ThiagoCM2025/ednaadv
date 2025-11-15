@@ -56,20 +56,18 @@ const Header = () => {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className="flex items-center group"
+            className="flex flex-col leading-none group"
           >
-            <div className="flex flex-col leading-none items-start transition-colors duration-500">
-              <span className={`font-heading font-bold text-lg md:text-2xl tracking-tight transition-colors duration-500 ${
-                isScrolled ? "text-foreground" : "text-background"
-              }`}>
-                Edna Porto
-              </span>
-              <span className={`uppercase text-[10px] md:text-xs tracking-[0.2em] mt-0.5 transition-colors duration-500 ${
-                isScrolled ? "text-muted-foreground" : "text-background/80"
-              }`}>
-                Advocacia Imobiliária
-              </span>
-            </div>
+            <span className={`text-2xl font-serif font-bold transition-colors ${
+              isScrolled ? "text-secondary" : "text-secondary"
+            }`}>
+              Edna Porto
+            </span>
+            <span className={`text-xs font-sans tracking-wider transition-colors ${
+              isScrolled ? "text-muted-foreground" : "text-muted/80"
+            }`}>
+              ADVOCACIA IMOBILIÁRIA
+            </span>
           </button>
 
           {/* Desktop Navigation */}

@@ -44,14 +44,14 @@ const Hero = () => {
             transform: `translateY(${scrollY * 0.5}px) scale(1.1)`
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-secondary/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-accent/90" />
       </div>
 
       {/* Content */}
       <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
         <div className="max-w-3xl animate-fade-in">
           <div className="mb-6">
-            <span className="inline-block px-4 py-2 bg-accent/20 text-accent border border-accent/30 rounded-full text-sm font-heading font-bold tracking-wide">
+            <span className="inline-block px-4 py-2 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-sm font-heading font-bold tracking-wide">
               DIREITO IMOBILIÁRIO
             </span>
           </div>
@@ -72,7 +72,7 @@ const Hero = () => {
             ))}
             <br />
             <span
-              className={`inline-block text-accent transition-all duration-700 ${
+              className={`inline-block text-secondary transition-all duration-700 ${
                 visibleWords >= 6 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{ transitionDelay: "600ms" }}
@@ -80,7 +80,7 @@ const Hero = () => {
               Rápida{" "}
             </span>
             <span
-              className={`inline-block text-accent transition-all duration-700 ${
+              className={`inline-block text-secondary transition-all duration-700 ${
                 visibleWords >= 7 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{ transitionDelay: "700ms" }}
@@ -88,7 +88,7 @@ const Hero = () => {
               e{" "}
             </span>
             <span
-              className={`inline-block text-accent transition-all duration-700 ${
+              className={`inline-block text-secondary transition-all duration-700 ${
                 visibleWords >= 8 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{ transitionDelay: "800ms" }}
@@ -105,7 +105,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant hover-lift btn-ripple btn-glow-pulse group"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant hover-lift btn-ripple btn-glow-pulse group"
               onClick={() => window.open(whatsappUrl, '_blank')}
             >
               <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform" />
@@ -121,22 +121,22 @@ const Hero = () => {
           <div className="mt-12 pt-8 border-t border-background/20">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
               <div className="flex flex-col items-center text-center group animate-fade-in-up">
-                <div className="mb-3 p-3 rounded-full bg-accent/20 border border-accent/30 group-hover:scale-110 group-hover:bg-accent/30 transition-all duration-300">
-                  <Shield className="h-6 w-6 text-accent" />
+                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <Shield className="h-6 w-6 text-secondary" />
                 </div>
                 <div className="text-sm font-heading font-semibold text-background">Segurança Jurídica</div>
               </div>
               
               <div className="flex flex-col items-center text-center group animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                <div className="mb-3 p-3 rounded-full bg-accent/20 border border-accent/30 group-hover:scale-110 group-hover:bg-accent/30 transition-all duration-300">
-                  <Clock className="h-6 w-6 text-accent" />
+                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <Clock className="h-6 w-6 text-secondary" />
                 </div>
                 <div className="text-sm font-heading font-semibold text-background">Resposta Rápida</div>
               </div>
               
               <div className="flex flex-col items-center text-center group animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-                <div className="mb-3 p-3 rounded-full bg-accent/20 border border-accent/30 group-hover:scale-110 group-hover:bg-accent/30 transition-all duration-300">
-                  <MapPin className="h-6 w-6 text-accent" />
+                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <MapPin className="h-6 w-6 text-secondary" />
                 </div>
                 <div className="text-sm font-heading font-semibold text-background">Salvador e Região</div>
               </div>
