@@ -1,7 +1,10 @@
 import { FileText, Home, Users, Gavel, ClipboardCheck, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Services = () => {
+  const { elementRef: headerRef, isVisible: headerVisible } = useScrollReveal();
+  const { elementRef: cardsRef, isVisible: cardsVisible } = useScrollReveal();
   const services = [
     {
       icon: Home,
@@ -38,7 +41,14 @@ const Services = () => {
   return (
     <section id="servicos" className="py-20 lg:py-32 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
+        <div 
+          ref={headerRef}
+          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 ${
+            headerVisible 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-8"
+          }`}
+        >
           <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-heading font-bold text-sm rounded-full mb-6">
             SERVIÇOS
           </span>
@@ -54,12 +64,18 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <Card 
               key={index}
-              className="border-none shadow-card hover-lift bg-background animate-scale-in-delayed group cursor-pointer"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={`border-none shadow-card hover-lift bg-background group cursor-pointer transition-all duration-700 ${
+                cardsVisible 
+                  ? "opacity-100 scale-100" 
+                  : "opacity-0 scale-95"
+              }`}
+              style={{ 
+                transitionDelay: cardsVisible ? `${index * 100}ms` : '0ms'
+              }}
             >
               <CardContent className="p-8">
                 <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent group-hover:scale-110 transition-all duration-300 icon-bounce">

@@ -1,6 +1,9 @@
 import { MessageCircle, FileSearch, FileCheck, CheckCircle } from "lucide-react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Process = () => {
+  const { elementRef: headerRef, isVisible: headerVisible } = useScrollReveal();
+  const { elementRef: stepsRef, isVisible: stepsVisible } = useScrollReveal();
   const steps = [
     {
       icon: MessageCircle,
@@ -34,7 +37,14 @@ const Process = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent" />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
+        <div 
+          ref={headerRef}
+          className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 ${
+            headerVisible 
+              ? "opacity-100 translate-y-0" 
+              : "opacity-0 translate-y-8"
+          }`}
+        >
           <span className="inline-block px-4 py-2 bg-secondary/10 text-secondary font-heading font-bold text-sm rounded-full mb-6">
             COMO FUNCIONA
           </span>
@@ -50,12 +60,18 @@ const Process = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+        <div ref={stepsRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {steps.map((step, index) => (
             <div 
               key={index}
-              className="relative animate-fade-in-up group"
-              style={{ animationDelay: `${index * 150}ms` }}
+              className={`relative group transition-all duration-700 ${
+                stepsVisible 
+                  ? "opacity-100 translate-y-0" 
+                  : "opacity-0 translate-y-12"
+              }`}
+              style={{ 
+                transitionDelay: stepsVisible ? `${index * 150}ms` : '0ms'
+              }}
             >
               {/* Connecting line (hidden on mobile, visible on lg+) */}
               {index < steps.length - 1 && (
