@@ -60,32 +60,32 @@ const Hero = () => {
             {["Seu", "Imóvel", "Regularizado", "de", "Forma"].map((word, index) => (
               <span
                 key={index}
-                className={`inline-block transition-all duration-700 ${
+                className={`inline-block mr-3 md:mr-4 transition-all duration-700 ${
                   index < visibleWords
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-4"
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {word}{" "}
+                {word}
               </span>
             ))}
             <br />
             <span
-              className={`inline-block text-secondary transition-all duration-700 ${
+              className={`inline-block mr-3 md:mr-4 text-secondary transition-all duration-700 ${
                 visibleWords >= 6 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{ transitionDelay: "600ms" }}
             >
-              Rápida{" "}
+              Rápida
             </span>
             <span
-              className={`inline-block text-secondary transition-all duration-700 ${
+              className={`inline-block mr-3 md:mr-4 text-secondary transition-all duration-700 ${
                 visibleWords >= 7 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}
               style={{ transitionDelay: "700ms" }}
             >
-              e{" "}
+              e
             </span>
             <span
               className={`inline-block text-secondary transition-all duration-700 ${
