@@ -33,11 +33,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         
         // Verificar role admin após definir session
         if (session?.user) {
+          setIsCheckingRole(true); // Definir IMEDIATAMENTE
           setTimeout(() => {
             checkAdminRole(session.user.id);
           }, 0);
         } else {
           setIsAdmin(false);
+          setIsCheckingRole(false);
         }
       }
     );
@@ -48,6 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(session?.user ?? null);
       
       if (session?.user) {
+        setIsCheckingRole(true); // Definir IMEDIATAMENTE
         setTimeout(() => {
           checkAdminRole(session.user.id);
         }, 0);
@@ -60,7 +63,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const checkAdminRole = async (userId: string) => {
-    setIsCheckingRole(true);
     try {
       const { data, error } = await supabase
         .from('user_roles')
