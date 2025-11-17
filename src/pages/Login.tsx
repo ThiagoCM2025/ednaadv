@@ -6,30 +6,32 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Scale } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  const { signIn, user } = useAuth();
+  const { signIn, user, isCheckingRole, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate('/dashboard');
+    if (user && !isCheckingRole) {
+      if (isAdmin) {
+        navigate('/dashboard');
+      } else {
+        toast.error('Acesso negado. Você não tem permissão de administrador.');
+      }
     }
-  }, [user, navigate]);
+  }, [user, isCheckingRole, isAdmin, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await signIn(email, password);
-      if (!error) {
-        navigate('/dashboard');
-      }
+      await signIn(email, password);
     } finally {
       setIsLoading(false);
     }
@@ -81,7 +83,7 @@ export default function Login() {
             </div>
             
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Carregando...' : 'Entrar'}
+              {isLoading ? 'Verificando acesso...' : 'Entrar'}
             </Button>
 
             <Button
