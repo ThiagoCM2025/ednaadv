@@ -116,7 +116,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2 text-muted/80 text-sm">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
-                Salvador, Lauro de Freitas e Camaçari/BA
+                Salvador e Lauro de Freitas/BA
               </li>
               <li>
                 <a 

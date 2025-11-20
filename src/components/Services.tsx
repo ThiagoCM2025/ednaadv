@@ -99,7 +99,7 @@ const Services = () => {
             <span className="font-heading font-bold text-foreground">Atendimento em:</span>
           </p>
           <p className="text-lg text-secondary font-heading font-semibold">
-            Salvador • Lauro de Freitas • Camaçari/BA
+            Salvador • Lauro de Freitas/BA
           </p>
         </div>
       </div>

@@ -103,7 +103,7 @@ const CompraVenda = () => {
     <>
       <Helmet>
         <title>Análise de Compra e Venda de Imóveis | Edna Porto Advocacia</title>
-        <meta name="description" content="Due diligence imobiliária completa. Análise jurídica de imóveis antes da compra, verificação de documentação e certidões. Segurança em transações imobiliárias em Salvador, Lauro de Freitas e Camaçari." />
+        <meta name="description" content="Due diligence imobiliária completa. Análise jurídica de imóveis antes da compra, verificação de documentação e certidões. Segurança em transações imobiliárias em Salvador e Lauro de Freitas." />
         <meta property="og:title" content="Análise de Compra e Venda de Imóveis | Edna Porto Advocacia" />
         <meta property="og:description" content="Proteja seu investimento com análise jurídica completa antes de comprar ou vender imóveis. Due diligence imobiliária especializada." />
         <meta property="og:type" content="website" />

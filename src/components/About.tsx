@@ -76,7 +76,7 @@ const About = () => {
             </p>
             
             <p className="text-base text-muted-foreground leading-relaxed mb-6">
-              Expert em direito imobiliário extrajudicial e regularização de imóveis, 
+              Especialista em direito imobiliário extrajudicial e regularização de imóveis, 
               com atuação focada na segurança patrimonial, regularização e prevenção de litígios.
             </p>
             

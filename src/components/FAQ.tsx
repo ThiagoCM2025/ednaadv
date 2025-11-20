@@ -25,7 +25,7 @@ const FAQ = () => {
     },
     {
       question: "Atende em outras cidades além de Salvador?",
-      answer: "Sim! Atendo presencialmente em Salvador, Lauro de Freitas e Camaçari. Para outras localidades da Bahia, avalio a viabilidade de atendimento remoto ou com deslocamento, dependendo da complexidade do caso."
+      answer: "Sim! Atendo presencialmente em Salvador e Lauro de Freitas. Para outras localidades da Bahia, avalio a viabilidade de atendimento remoto ou com deslocamento, dependendo da complexidade do caso."
     },
     {
       question: "Quais são as formas de pagamento?",
