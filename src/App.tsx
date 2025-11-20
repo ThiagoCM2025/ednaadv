@@ -15,6 +15,10 @@ import Analytics from "./pages/dashboard/Analytics";
 import BlogList from "./pages/BlogList";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import Usucapiao from "./pages/services/Usucapiao";
+import CompraVenda from "./pages/services/CompraVenda";
+import Inventario from "./pages/services/Inventario";
+import ContratoGaveta from "./pages/services/ContratoGaveta";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,10 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/blog" element={<BlogList />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/servicos/usucapiao" element={<Usucapiao />} />
+            <Route path="/servicos/compra-venda" element={<CompraVenda />} />
+            <Route path="/servicos/inventario" element={<Inventario />} />
+            <Route path="/servicos/contrato-gaveta" element={<ContratoGaveta />} />
             <Route path="/dashboard" element={<ProtectedRoute requireAdmin><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard/posts" element={<ProtectedRoute requireAdmin><Posts /></ProtectedRoute>} />
             <Route path="/dashboard/posts/new" element={<ProtectedRoute requireAdmin><PostEditor /></ProtectedRoute>} />

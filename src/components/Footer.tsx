@@ -50,12 +50,39 @@ const Footer = () => {
             <h3 className="font-heading font-bold text-background mb-4">
               Principais Serviços
             </h3>
-            <ul className="space-y-2 text-sm text-muted/80">
-              <li>Usucapião</li>
-              <li>Regularização de Imóveis</li>
-              <li>Inventário Extrajudicial</li>
-              <li>Escrituras e Contratos</li>
-              <li>Consultoria Preventiva</li>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link 
+                  to="/servicos/usucapiao"
+                  className="text-muted/80 hover:text-secondary transition-colors"
+                >
+                  Usucapião
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/servicos/compra-venda"
+                  className="text-muted/80 hover:text-secondary transition-colors"
+                >
+                  Análise de Compra e Venda
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/servicos/inventario"
+                  className="text-muted/80 hover:text-secondary transition-colors"
+                >
+                  Inventário
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/servicos/contrato-gaveta"
+                  className="text-muted/80 hover:text-secondary transition-colors"
+                >
+                  Regularização de Contrato de Gaveta
+                </Link>
+              </li>
             </ul>
           </div>
 
