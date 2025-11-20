@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Search, FileText, ShieldCheck, AlertTriangle, CheckCircle2, Gavel } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ServiceBreadcrumb from "@/components/services/ServiceBreadcrumb";
 import ServiceHero from "@/components/services/ServiceHero";
 import ProcessTimeline from "@/components/services/ProcessTimeline";
 import ServiceBenefits from "@/components/services/ServiceBenefits";
@@ -110,6 +111,9 @@ const CompraVenda = () => {
 
       <div className="min-h-screen">
         <Header />
+        
+        <ServiceBreadcrumb serviceName="Análise de Compra e Venda" />
+        
         <main>
           <ServiceHero
             title="Análise de Compra e Venda"
