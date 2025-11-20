@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Users, FileText, Clock, Home, Scale, Heart } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ServiceBreadcrumb from "@/components/services/ServiceBreadcrumb";
 import ServiceHero from "@/components/services/ServiceHero";
 import ProcessTimeline from "@/components/services/ProcessTimeline";
 import ServiceBenefits from "@/components/services/ServiceBenefits";
@@ -110,6 +111,9 @@ const Inventario = () => {
 
       <div className="min-h-screen">
         <Header />
+        
+        <ServiceBreadcrumb serviceName="Inventário" />
+        
         <main>
           <ServiceHero
             title="Inventário"
