@@ -1,8 +1,10 @@
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const isOnHomePage = location.pathname === '/';
 
   return (
     <footer className="bg-primary text-background py-16">
@@ -31,15 +33,24 @@ const Footer = () => {
             <ul className="space-y-2">
               {["sobre", "servicos", "faq", "contato"].map((item) => (
                 <li key={item}>
-                  <button
-                    onClick={() => {
-                      const element = document.getElementById(item);
-                      if (element) element.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="text-muted/80 hover:text-secondary transition-colors text-sm"
-                  >
-                    {item.charAt(0).toUpperCase() + item.slice(1)}
-                  </button>
+                  {isOnHomePage ? (
+                    <button
+                      onClick={() => {
+                        const element = document.getElementById(item);
+                        if (element) element.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="text-muted/80 hover:text-secondary transition-colors text-sm"
+                    >
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </button>
+                  ) : (
+                    <Link
+                      to={`/?section=${item}`}
+                      className="text-muted/80 hover:text-secondary transition-colors text-sm"
+                    >
+                      {item.charAt(0).toUpperCase() + item.slice(1)}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

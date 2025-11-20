@@ -10,6 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
   
   const isOnBlogPage = location.pathname.startsWith('/blog');
+  const isOnServicePage = location.pathname.startsWith('/servicos');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,7 +51,7 @@ const Header = () => {
           {/* Logo */}
           <button 
             onClick={() => {
-              if (isOnBlogPage) {
+              if (isOnBlogPage || isOnServicePage) {
                 navigate('/');
               } else {
                 window.scrollTo({ top: 0, behavior: "smooth" });
@@ -83,7 +84,7 @@ const Header = () => {
                 >
                   {item.label}
                 </Link>
-              ) : isOnBlogPage ? (
+              ) : (isOnBlogPage || isOnServicePage) ? (
                 <Link
                   key={item.href}
                   to={`/?section=${item.href}`}
@@ -146,7 +147,7 @@ const Header = () => {
                 >
                   {item.label}
                 </Link>
-              ) : isOnBlogPage ? (
+              ) : (isOnBlogPage || isOnServicePage) ? (
                 <Link
                   key={item.href}
                   to={`/?section=${item.href}`}
