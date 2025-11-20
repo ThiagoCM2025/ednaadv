@@ -69,7 +69,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-heading font-bold text-foreground">Atendimento</p>
-                  <p className="text-muted-foreground">Salvador, Lauro de Freitas e Camaçari/BA</p>
+                  <p className="text-muted-foreground">Salvador e Lauro de Freitas/BA</p>
                 </div>
               </div>
 

@@ -103,7 +103,7 @@ const ContratoGaveta = () => {
     <>
       <Helmet>
         <title>Regularização de Contrato de Gaveta | Edna Porto Advocacia</title>
-        <meta name="description" content="Regularização de contratos particulares de compra e venda de imóveis. Transforme seu contrato de gaveta em escritura pública registrada. Adjudicação compulsória em Salvador, Lauro de Freitas e Camaçari." />
+        <meta name="description" content="Regularização de contratos particulares de compra e venda de imóveis. Transforme seu contrato de gaveta em escritura pública registrada. Adjudicação compulsória em Salvador e Lauro de Freitas." />
         <meta property="og:title" content="Regularização de Contrato de Gaveta | Edna Porto Advocacia" />
         <meta property="og:description" content="Proteja seu patrimônio regularizando contratos de gaveta. Assessoria especializada em adjudicação compulsória e escrituração de imóveis." />
         <meta property="og:type" content="website" />

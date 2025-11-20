@@ -103,7 +103,7 @@ const Usucapiao = () => {
     <>
       <Helmet>
         <title>Usucapião - Regularização de Propriedade | Edna Porto Advocacia</title>
-        <meta name="description" content="Regularize seu imóvel através de usucapião. Especialista em processos judiciais e extrajudiciais de aquisição de propriedade por posse prolongada. Atendimento em Salvador, Lauro de Freitas e Camaçari." />
+        <meta name="description" content="Regularize seu imóvel através de usucapião. Especialista em processos judiciais e extrajudiciais de aquisição de propriedade por posse prolongada. Atendimento em Salvador e Lauro de Freitas." />
         <meta property="og:title" content="Usucapião - Regularização de Propriedade | Edna Porto Advocacia" />
         <meta property="og:description" content="Transforme sua posse em propriedade regularizada com segurança jurídica. Processos de usucapião judicial e extrajudicial." />
         <meta property="og:type" content="website" />

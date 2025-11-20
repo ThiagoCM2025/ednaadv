@@ -67,7 +67,7 @@ const ServiceCTA = ({
                   <strong className="text-background">OAB/BA</strong> • Especialista em Direito Imobiliário e Extrajudicial
                 </p>
                 <p className="text-background/70 text-sm mt-2">
-                  Atendimento em Salvador, Lauro de Freitas e Camaçari
+                  Atendimento em Salvador e Lauro de Freitas
                 </p>
               </div>
             </div>

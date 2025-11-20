@@ -103,7 +103,7 @@ const Inventario = () => {
     <>
       <Helmet>
         <title>Inventário e Partilha de Bens | Edna Porto Advocacia</title>
-        <meta name="description" content="Inventário judicial e extrajudicial. Assessoria completa em sucessão, partilha de bens e regularização patrimonial. Atendimento em Salvador, Lauro de Freitas e Camaçari/BA." />
+        <meta name="description" content="Inventário judicial e extrajudicial. Assessoria completa em sucessão, partilha de bens e regularização patrimonial. Atendimento em Salvador e Lauro de Freitas/BA." />
         <meta property="og:title" content="Inventário e Partilha de Bens | Edna Porto Advocacia" />
         <meta property="og:description" content="Regularize o patrimônio familiar com segurança jurídica. Inventário judicial e extrajudicial com especialista em direito sucessório." />
         <meta property="og:type" content="website" />
