@@ -38,13 +38,13 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-[center_top_20%] bg-no-repeat opacity-60 transition-transform duration-100 ease-out"
+          className="absolute inset-0 bg-cover bg-[center_top_20%] bg-no-repeat opacity-80 transition-transform duration-100 ease-out"
           style={{ 
             backgroundImage: `url(${heroImage})`,
             transform: `translateY(${scrollY * 0.5}px) scale(1.1)`
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-accent/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-accent/60" />
       </div>
 
       {/* Content */}
