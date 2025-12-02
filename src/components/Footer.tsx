@@ -1,5 +1,6 @@
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { trackConversion } from "@/lib/gtag";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -108,6 +109,7 @@ const Footer = () => {
                   href="https://api.whatsapp.com/send/?phone=%2B5571987420684&text&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={trackConversion}
                   className="flex items-center gap-2 text-muted/80 hover:text-secondary transition-colors text-sm group"
                 >
                   <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
