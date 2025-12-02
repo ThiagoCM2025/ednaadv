@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackConversion } from "@/lib/gtag";
 
 interface ServiceHeroProps {
   title: string;
@@ -37,7 +38,7 @@ const ServiceHero = ({ title, subtitle, description, image, imageAlt }: ServiceH
           <p className="text-background/90 text-lg md:text-xl mb-8 leading-relaxed animate-fade-in max-w-2xl">
             {description}
           </p>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={trackConversion}>
             <Button 
               size="lg" 
               className="bg-secondary hover:bg-secondary/90 text-background font-semibold group animate-fade-in"

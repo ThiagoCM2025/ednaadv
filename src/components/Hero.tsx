@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Shield, Clock, MapPin } from "lucide-react";
 import heroImage from "@/assets/edna-hero.jpg";
+import { trackConversion } from "@/lib/gtag";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -32,6 +33,11 @@ const Hero = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleWhatsAppClick = () => {
+    trackConversion();
+    window.open(whatsappUrl, '_blank');
+  };
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-primary">
@@ -106,7 +112,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold text-base h-14 px-8 shadow-elegant hover-lift btn-ripple btn-glow-pulse group"
-              onClick={() => window.open(whatsappUrl, '_blank')}
+              onClick={handleWhatsAppClick}
             >
               <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform" />
               Agende sua Consulta

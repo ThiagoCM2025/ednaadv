@@ -1,6 +1,7 @@
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { trackConversion } from "@/lib/gtag";
 
 interface ServiceCTAProps {
   title?: string;
@@ -15,6 +16,10 @@ const ServiceCTA = ({
 }: ServiceCTAProps) => {
   const whatsappMessage = `Olá! Gostaria de agendar uma consulta sobre ${serviceName}.`;
   const whatsappUrl = `https://api.whatsapp.com/send/?phone=%2B5571987420684&text=${encodeURIComponent(whatsappMessage)}`;
+
+  const handleWhatsAppClick = () => {
+    trackConversion();
+  };
 
   return (
     <section className="py-20 bg-background">
@@ -39,7 +44,12 @@ const ServiceCTA = ({
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={whatsappUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={handleWhatsAppClick}
+                >
                   <Button 
                     size="lg" 
                     className="bg-secondary hover:bg-secondary/90 text-background font-semibold group w-full sm:w-auto"

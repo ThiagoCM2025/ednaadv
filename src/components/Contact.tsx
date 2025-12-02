@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Mail, MapPin, Instagram } from "lucide-react";
 import contactImage from "@/assets/edna-contact.jpg";
+import { trackConversion } from "@/lib/gtag";
 
 const Contact = () => {
   const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20agendar%20uma%20consulta.&type=phone_number&app_absent=0";
+
+  const handleWhatsAppClick = () => {
+    trackConversion();
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handlePhoneClick = () => {
+    trackConversion();
+    window.open('tel:5571987420684');
+  };
 
   return (
     <section id="contato" className="py-20 lg:py-32 bg-muted/30 relative overflow-hidden">
@@ -35,6 +46,7 @@ const Contact = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={trackConversion}
                 className="flex items-center gap-4 p-4 rounded-xl hover:bg-background transition-all group"
               >
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
@@ -50,6 +62,7 @@ const Contact = () => {
 
               <a 
                 href="tel:5571987420684"
+                onClick={trackConversion}
                 className="flex items-center gap-4 p-4 rounded-xl hover:bg-background transition-all group"
               >
                 <div className="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-secondary group-hover:scale-110 transition-all">
@@ -96,7 +109,7 @@ const Contact = () => {
               <Button 
                 size="lg" 
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-heading font-bold h-14 px-8 shadow-elegant hover-lift btn-ripple btn-shimmer group"
-                onClick={() => window.open(whatsappUrl, '_blank')}
+                onClick={handleWhatsAppClick}
               >
                 <MessageCircle className="mr-2 h-5 w-5 group-hover:scale-110 group-hover:rotate-12 transition-transform" />
                 Falar no WhatsApp
@@ -106,7 +119,7 @@ const Contact = () => {
                 size="lg" 
                 variant="outline"
                 className="border-2 border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground font-heading font-bold h-14 px-8 btn-pulse group"
-                onClick={() => window.open(`tel:5571987420684`)}
+                onClick={handlePhoneClick}
               >
                 <Phone className="mr-2 h-5 w-5" />
                 Ligar Agora
