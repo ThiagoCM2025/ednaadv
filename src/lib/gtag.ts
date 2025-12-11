@@ -16,3 +16,18 @@ export const trackConversion = () => {
     });
   }
 };
+
+// Conversão de Visualização de página (cliques em CTAs)
+export const trackPageViewConversion = () => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'conversion', {
+      'send_to': 'AW-17195676557/Q0clCIXt9c8bEI3nxIdA'
+    });
+  }
+};
+
+// Função combinada que dispara todas as conversões
+export const trackAllConversions = () => {
+  trackConversion();
+  trackPageViewConversion();
+};
