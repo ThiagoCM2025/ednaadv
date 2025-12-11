@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Shield, Clock, MapPin } from "lucide-react";
 import heroImage from "@/assets/edna-hero.jpg";
-import { trackConversion } from "@/lib/gtag";
+import { trackAllConversions } from "@/lib/gtag";
 
 const Hero = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -35,7 +35,7 @@ const Hero = () => {
   }, []);
 
   const handleWhatsAppClick = () => {
-    trackConversion();
+    trackAllConversions();
     window.open(whatsappUrl, '_blank');
   };
 

@@ -1,7 +1,7 @@
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { trackConversion } from "@/lib/gtag";
+import { trackAllConversions } from "@/lib/gtag";
 
 interface ServiceCTAProps {
   title?: string;
@@ -18,7 +18,7 @@ const ServiceCTA = ({
   const whatsappUrl = `https://api.whatsapp.com/send/?phone=%2B5571987420684&text=${encodeURIComponent(whatsappMessage)}`;
 
   const handleWhatsAppClick = () => {
-    trackConversion();
+    trackAllConversions();
   };
 
   return (

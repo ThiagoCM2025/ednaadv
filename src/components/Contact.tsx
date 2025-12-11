@@ -1,18 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Mail, MapPin, Instagram } from "lucide-react";
 import contactImage from "@/assets/edna-contact.jpg";
-import { trackConversion } from "@/lib/gtag";
+import { trackAllConversions } from "@/lib/gtag";
 
 const Contact = () => {
   const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20agendar%20uma%20consulta.&type=phone_number&app_absent=0";
 
   const handleWhatsAppClick = () => {
-    trackConversion();
+    trackAllConversions();
     window.open(whatsappUrl, '_blank');
   };
 
   const handlePhoneClick = () => {
-    trackConversion();
+    trackAllConversions();
     window.open('tel:5571987420684');
   };
 
@@ -46,7 +46,7 @@ const Contact = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={trackConversion}
+                onClick={trackAllConversions}
                 className="flex items-center gap-4 p-4 rounded-xl hover:bg-background transition-all group"
               >
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all">
@@ -62,7 +62,7 @@ const Contact = () => {
 
               <a 
                 href="tel:5571987420684"
-                onClick={trackConversion}
+                onClick={trackAllConversions}
                 className="flex items-center gap-4 p-4 rounded-xl hover:bg-background transition-all group"
               >
                 <div className="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center group-hover:bg-secondary group-hover:scale-110 transition-all">
