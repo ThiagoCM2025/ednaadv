@@ -59,12 +59,12 @@ const Header = () => {
             }}
             className="flex flex-col leading-none group"
           >
-            <span className={`text-2xl font-serif font-bold transition-colors ${
+            <span className={`text-xl sm:text-2xl font-serif font-bold transition-colors ${
               isScrolled ? "text-secondary" : "text-secondary"
             }`}>
               Edna Porto
             </span>
-            <span className={`text-xs font-sans tracking-wider transition-colors ${
+            <span className={`text-[10px] sm:text-xs font-sans tracking-wider transition-colors ${
               isScrolled ? "text-muted-foreground" : "text-muted/80"
             }`}>
               ADVOCACIA IMOBILIÁRIA

@@ -32,10 +32,10 @@ const ServiceHero = ({ title, subtitle, description, image, imageAlt }: ServiceH
           <p className="text-secondary font-sans text-sm tracking-widest uppercase mb-4 animate-fade-in">
             {subtitle}
           </p>
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-background mb-6 animate-fade-in leading-tight">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-background mb-4 sm:mb-6 animate-fade-in leading-tight">
             {title}
           </h1>
-          <p className="text-background/90 text-lg md:text-xl mb-8 leading-relaxed animate-fade-in max-w-2xl">
+          <p className="text-background/90 text-base sm:text-lg md:text-xl mb-6 sm:mb-8 leading-relaxed animate-fade-in max-w-2xl">
             {description}
           </p>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={trackAllConversions}>

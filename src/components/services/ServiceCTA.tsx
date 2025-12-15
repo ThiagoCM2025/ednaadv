@@ -25,21 +25,21 @@ const ServiceCTA = ({
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <Card className="max-w-4xl mx-auto bg-gradient-to-br from-accent to-accent/80 border-none shadow-elegant overflow-hidden">
-          <CardContent className="p-8 md:p-12 relative">
+          <CardContent className="p-6 sm:p-8 md:p-12 relative">
             {/* Decorative Element */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl -z-0" />
             
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-background/20 flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-background" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-background/20 flex items-center justify-center flex-shrink-0">
+                  <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-background" />
                 </div>
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-background">
+                <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-background">
                   {title}
                 </h2>
               </div>
               
-              <p className="text-background/90 text-lg mb-8 max-w-2xl leading-relaxed">
+              <p className="text-background/90 text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl leading-relaxed">
                 {description}
               </p>
 

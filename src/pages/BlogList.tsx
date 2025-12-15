@@ -78,10 +78,10 @@ export default function BlogList() {
       <section className="bg-gradient-to-br from-primary via-accent to-primary py-20 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold font-heading mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-heading mb-4 sm:mb-6">
               Blog Jurídico
             </h1>
-            <p className="text-xl text-white/90">
+            <p className="text-lg sm:text-xl text-white/90">
               Artigos, insights e análises sobre Direito Imobiliário e muito mais
             </p>
           </div>
