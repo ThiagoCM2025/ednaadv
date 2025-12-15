@@ -146,7 +146,7 @@ export default function BlogPost() {
           )}
 
           {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold font-heading text-foreground mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-foreground mb-4 sm:mb-6 leading-tight">
             {post.title}
           </h1>
 
@@ -158,7 +158,7 @@ export default function BlogPost() {
           )}
 
           {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-muted-foreground mb-8 pb-8 border-b">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 pb-6 sm:pb-8 border-b">
             {post.profiles?.full_name && (
               <div className="flex items-center gap-3">
                 {post.profiles.avatar_url ? (
@@ -200,10 +200,18 @@ export default function BlogPost() {
               variant="outline"
               size="sm"
               onClick={handleShare}
-              className="ml-auto"
+              className="ml-auto hidden sm:flex"
             >
               <Share2 className="h-4 w-4 mr-2" />
               Compartilhar
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleShare}
+              className="ml-auto sm:hidden"
+            >
+              <Share2 className="h-4 w-4" />
             </Button>
           </div>
 

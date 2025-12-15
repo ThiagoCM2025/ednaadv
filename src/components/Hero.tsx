@@ -56,13 +56,13 @@ const Hero = () => {
       {/* Content */}
       <div className="container relative z-10 mx-auto px-4 py-20 lg:py-32">
         <div className="max-w-3xl animate-fade-in">
-          <div className="mb-6">
-            <span className="inline-block px-4 py-2 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-sm font-heading font-bold tracking-wide">
+          <div className="mb-4 sm:mb-6">
+            <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide">
               DIREITO IMOBILIÁRIO
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-background mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-background mb-4 sm:mb-6 leading-tight">
             {["Seu", "Imóvel", "Regularizado", "de", "Forma"].map((word, index) => (
               <span
                 key={index}
@@ -124,27 +124,27 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-background/20">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-background/20">
+            <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-2xl">
               <div className="flex flex-col items-center text-center group animate-fade-in-up">
-                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
-                  <Shield className="h-6 w-6 text-secondary" />
+                <div className="mb-2 sm:mb-3 p-2 sm:p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-secondary" />
                 </div>
-                <div className="text-sm font-heading font-semibold text-background">Segurança Jurídica</div>
+                <div className="text-xs sm:text-sm font-heading font-semibold text-background">Segurança Jurídica</div>
               </div>
               
               <div className="flex flex-col items-center text-center group animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
-                  <Clock className="h-6 w-6 text-secondary" />
+                <div className="mb-2 sm:mb-3 p-2 sm:p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <Clock className="h-4 w-4 sm:h-6 sm:w-6 text-secondary" />
                 </div>
-                <div className="text-sm font-heading font-semibold text-background">Resposta Rápida</div>
+                <div className="text-xs sm:text-sm font-heading font-semibold text-background">Resposta Rápida</div>
               </div>
               
               <div className="flex flex-col items-center text-center group animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-                <div className="mb-3 p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
-                  <MapPin className="h-6 w-6 text-secondary" />
+                <div className="mb-2 sm:mb-3 p-2 sm:p-3 rounded-full bg-secondary/20 border border-secondary/30 group-hover:scale-110 group-hover:bg-secondary/30 transition-all duration-300">
+                  <MapPin className="h-4 w-4 sm:h-6 sm:w-6 text-secondary" />
                 </div>
-                <div className="text-sm font-heading font-semibold text-background">Salvador e Região</div>
+                <div className="text-xs sm:text-sm font-heading font-semibold text-background">Salvador e Região</div>
               </div>
             </div>
           </div>

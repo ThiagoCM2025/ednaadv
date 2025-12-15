@@ -233,31 +233,31 @@ export default function PostEditor() {
     <DashboardLayout>
       <div className="p-6">
         {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
             <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard/posts')}>
               <ArrowLeft className="h-4 w-4" />
             </Button>
-            <div className="flex items-center gap-3">
-              <h1 className="text-3xl font-bold text-foreground">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                 {id ? 'Editar Artigo' : 'Novo Artigo'}
               </h1>
               {isAIGenerated && (
                 <Badge variant="secondary" className="gap-1">
                   <Sparkles className="w-3 h-3" />
-                  Gerado com IA
+                  <span className="hidden sm:inline">Gerado com</span> IA
                 </Badge>
               )}
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={handleSaveDraft} disabled={saveMutation.isPending}>
-              <Save className="h-4 w-4 mr-2" />
-              Salvar Rascunho
+          <div className="flex gap-2 w-full sm:w-auto">
+            <Button variant="outline" onClick={handleSaveDraft} disabled={saveMutation.isPending} className="flex-1 sm:flex-none">
+              <Save className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Salvar Rascunho</span>
             </Button>
-            <Button onClick={handlePublish} disabled={saveMutation.isPending}>
-              <Send className="h-4 w-4 mr-2" />
-              Publicar
+            <Button onClick={handlePublish} disabled={saveMutation.isPending} className="flex-1 sm:flex-none">
+              <Send className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Publicar</span>
             </Button>
           </div>
         </div>

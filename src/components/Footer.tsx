@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-background py-16">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12">
           {/* Brand */}
           <div>
             <div className="flex flex-col leading-none mb-4">
@@ -136,21 +136,23 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-background/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted/60">
-            <p>
-              © {currentYear} Edna Porto Advocacia. Todos os direitos reservados.
-            </p>
-            <div className="flex items-center gap-6">
-              <p>
-                OAB/BA • Direito Imobiliário e Extrajudicial
+        <div className="pt-6 sm:pt-8 border-t border-background/20">
+          <div className="flex flex-col gap-4 text-sm text-muted/60 text-center md:text-left">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-xs sm:text-sm">
+                © {currentYear} Edna Porto Advocacia. Todos os direitos reservados.
               </p>
-              <Link 
-                to="/login"
-                className="text-xs text-muted/40 hover:text-muted/60 transition-colors"
-              >
-                Admin
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6">
+                <p className="text-xs sm:text-sm">
+                  OAB/BA • Direito Imobiliário e Extrajudicial
+                </p>
+                <Link 
+                  to="/login"
+                  className="text-xs text-muted/40 hover:text-muted/60 transition-colors"
+                >
+                  Admin
+                </Link>
+              </div>
             </div>
           </div>
         </div>
