@@ -8,7 +8,7 @@ const Footer = () => {
   const isOnHomePage = location.pathname === '/';
 
   return (
-    <footer className="bg-primary text-background py-16">
+    <footer id="site-footer" className="bg-primary text-background py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12">
           {/* Brand */}
