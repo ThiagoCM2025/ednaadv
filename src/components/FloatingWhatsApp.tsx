@@ -7,13 +7,12 @@ const FloatingWhatsApp = () => {
   const location = useLocation();
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   
-  // Ocultar no dashboard e login
-  if (location.pathname.startsWith('/dashboard') || location.pathname === '/login') {
-    return null;
-  }
+  const shouldHide = location.pathname.startsWith('/dashboard') || location.pathname === '/login';
 
   // Observar quando o rodapé entra na tela para esconder o botão
   useEffect(() => {
+    if (shouldHide) return;
+    
     const footer = document.getElementById('site-footer');
     if (!footer) return;
 
@@ -29,7 +28,12 @@ const FloatingWhatsApp = () => {
 
     observer.observe(footer);
     return () => observer.disconnect();
-  }, [location.pathname]);
+  }, [location.pathname, shouldHide]);
+
+  // Ocultar no dashboard e login
+  if (shouldHide) {
+    return null;
+  }
   
   const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20advocacia%20imobiliária.&type=phone_number&app_absent=0";
 
