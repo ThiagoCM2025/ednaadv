@@ -14,12 +14,24 @@ import {
   Undo,
   Redo,
   Wand2,
+  MessageSquareWarning,
+  Info,
+  Lightbulb,
+  AlertTriangle,
+  AlertCircle,
 } from 'lucide-react';
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ImageUpload } from '@/components/upload/ImageUpload';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { CalloutType } from './extensions/CalloutExtension';
 
 interface EditorToolbarProps {
   editor: Editor | null;
@@ -130,6 +142,51 @@ export function EditorToolbar({ editor, onFormat }: EditorToolbarProps) {
         >
           <ImageIcon className="h-4 w-4" />
         </Button>
+
+        <Separator orientation="vertical" className="h-8" />
+
+        {/* Callout Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              title="Inserir bloco de destaque"
+            >
+              <MessageSquareWarning className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start">
+            <DropdownMenuItem
+              onClick={() => editor.chain().focus().toggleCallout('info' as CalloutType).run()}
+              className="flex items-center gap-2"
+            >
+              <Info className="h-4 w-4 text-blue-500" />
+              <span>Informação</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => editor.chain().focus().toggleCallout('tip' as CalloutType).run()}
+              className="flex items-center gap-2"
+            >
+              <Lightbulb className="h-4 w-4 text-green-500" />
+              <span>Dica</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => editor.chain().focus().toggleCallout('warning' as CalloutType).run()}
+              className="flex items-center gap-2"
+            >
+              <AlertTriangle className="h-4 w-4 text-yellow-500" />
+              <span>Atenção</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => editor.chain().focus().toggleCallout('important' as CalloutType).run()}
+              className="flex items-center gap-2"
+            >
+              <AlertCircle className="h-4 w-4 text-red-500" />
+              <span>Importante</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Separator orientation="vertical" className="h-8" />
 
