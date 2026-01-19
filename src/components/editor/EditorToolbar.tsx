@@ -13,6 +13,7 @@ import {
   Image as ImageIcon,
   Undo,
   Redo,
+  Wand2,
 } from 'lucide-react';
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
@@ -22,9 +23,10 @@ import { ImageUpload } from '@/components/upload/ImageUpload';
 
 interface EditorToolbarProps {
   editor: Editor | null;
+  onFormat?: () => void;
 }
 
-export function EditorToolbar({ editor }: EditorToolbarProps) {
+export function EditorToolbar({ editor, onFormat }: EditorToolbarProps) {
   const [linkDialog, setLinkDialog] = useState(false);
   const [imageDialog, setImageDialog] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
@@ -146,6 +148,18 @@ export function EditorToolbar({ editor }: EditorToolbarProps) {
           disabled={!editor.can().redo()}
         >
           <Redo className="h-4 w-4" />
+        </Button>
+
+        <Separator orientation="vertical" className="h-8" />
+
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onFormat}
+          title="Formatar conteúdo automaticamente"
+          className="text-primary hover:text-primary hover:bg-primary/10"
+        >
+          <Wand2 className="h-4 w-4" />
         </Button>
       </div>
 

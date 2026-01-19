@@ -7,11 +7,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Loader2, Sparkles, Image as ImageIcon, Upload, X } from 'lucide-react';
+import { Loader2, Sparkles, Image as ImageIcon, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { formatBlogContent } from '@/lib/formatContent';
 
 interface AIPostGeneratorProps {
   open: boolean;
@@ -105,15 +106,19 @@ export function AIPostGenerator({ open, onOpenChange }: AIPostGeneratorProps) {
         }
       }
 
+      // Aplicar formatação automática ao conteúdo gerado
+      const formattedContent = formatBlogContent(contentData.content);
+
       setGeneratedArticle({
         ...contentData,
+        content: formattedContent,
         imageUrl
       });
       setEditedTitle(contentData.title);
       setEditedCategory(contentData.category);
       setEditedExcerpt(contentData.excerpt);
       setLoadingStep('preview');
-      toast.success('Artigo gerado com sucesso!');
+      toast.success('Artigo gerado e formatado com sucesso!');
 
     } catch (error: any) {
       console.error('Error generating article:', error);

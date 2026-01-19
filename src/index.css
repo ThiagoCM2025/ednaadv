@@ -365,3 +365,30 @@ html {
   border-top: 2px solid hsl(var(--border));
   margin: 2rem 0;
 }
+
+.ProseMirror strong {
+  color: hsl(var(--accent));
+  font-weight: 600;
+}
+
+.ProseMirror em {
+  font-style: italic;
+}
+
+/* Melhor espaçamento entre elementos */
+.ProseMirror > *:first-child {
+  margin-top: 0;
+}
+
+.ProseMirror h2 + p,
+.ProseMirror h3 + p {
+  margin-top: 0.5rem;
+}
+
+.ProseMirror p + h2 {
+  margin-top: 2.5rem;
+}
+
+.ProseMirror p + h3 {
+  margin-top: 2rem;
+}
