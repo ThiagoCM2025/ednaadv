@@ -1,7 +1,15 @@
 import { MessageCircle } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { trackAllConversions } from "@/lib/gtag";
 
 const FloatingWhatsApp = () => {
+  const location = useLocation();
+  
+  // Ocultar no dashboard e login
+  if (location.pathname.startsWith('/dashboard') || location.pathname === '/login') {
+    return null;
+  }
+  
   const whatsappUrl = "https://api.whatsapp.com/send/?phone=%2B5571987420684&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20advocacia%20imobiliária.&type=phone_number&app_absent=0";
 
   const handleClick = () => {
