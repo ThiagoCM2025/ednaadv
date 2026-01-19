@@ -392,3 +392,123 @@ html {
 .ProseMirror p + h3 {
   margin-top: 2rem;
 }
+
+/* Callout Styles - Editor */
+.ProseMirror [data-callout] {
+  padding: 1rem 1rem 1rem 3.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+  border-left: 4px solid;
+}
+
+.ProseMirror [data-callout]::before {
+  position: absolute;
+  left: 0.875rem;
+  top: 1rem;
+  font-size: 1.25rem;
+}
+
+.ProseMirror [data-callout] p {
+  margin-bottom: 0.5rem;
+}
+
+.ProseMirror [data-callout] p:last-child {
+  margin-bottom: 0;
+}
+
+/* Info - Azul */
+.ProseMirror [data-callout="info"] {
+  background-color: hsl(210 100% 95%);
+  border-left-color: hsl(210 100% 50%);
+}
+.ProseMirror [data-callout="info"]::before {
+  content: 'ℹ️';
+}
+
+/* Tip - Verde */
+.ProseMirror [data-callout="tip"] {
+  background-color: hsl(140 70% 95%);
+  border-left-color: hsl(140 70% 40%);
+}
+.ProseMirror [data-callout="tip"]::before {
+  content: '💡';
+}
+
+/* Warning - Amarelo */
+.ProseMirror [data-callout="warning"] {
+  background-color: hsl(45 100% 95%);
+  border-left-color: hsl(45 100% 45%);
+}
+.ProseMirror [data-callout="warning"]::before {
+  content: '⚠️';
+}
+
+/* Important - Vermelho */
+.ProseMirror [data-callout="important"] {
+  background-color: hsl(0 100% 97%);
+  border-left-color: hsl(0 70% 50%);
+}
+.ProseMirror [data-callout="important"]::before {
+  content: '🚨';
+}
+
+/* Callout Styles - Blog Post (public view) */
+[data-callout] {
+  padding: 1rem 1rem 1rem 3.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+  border-left: 4px solid;
+}
+
+[data-callout]::before {
+  position: absolute;
+  left: 0.875rem;
+  top: 1rem;
+  font-size: 1.25rem;
+}
+
+[data-callout] p {
+  margin-bottom: 0.5rem !important;
+}
+
+[data-callout] p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Info - Azul */
+[data-callout="info"] {
+  background-color: hsl(210 100% 95%);
+  border-left-color: hsl(210 100% 50%);
+}
+[data-callout="info"]::before {
+  content: 'ℹ️';
+}
+
+/* Tip - Verde */
+[data-callout="tip"] {
+  background-color: hsl(140 70% 95%);
+  border-left-color: hsl(140 70% 40%);
+}
+[data-callout="tip"]::before {
+  content: '💡';
+}
+
+/* Warning - Amarelo */
+[data-callout="warning"] {
+  background-color: hsl(45 100% 95%);
+  border-left-color: hsl(45 100% 45%);
+}
+[data-callout="warning"]::before {
+  content: '⚠️';
+}
+
+/* Important - Vermelho */
+[data-callout="important"] {
+  background-color: hsl(0 100% 97%);
+  border-left-color: hsl(0 70% 50%);
+}
+[data-callout="important"]::before {
+  content: '🚨';
+}

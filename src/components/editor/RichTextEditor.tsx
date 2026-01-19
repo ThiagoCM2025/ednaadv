@@ -6,6 +6,7 @@ import { EditorToolbar } from './EditorToolbar';
 import { useEffect, useCallback } from 'react';
 import { formatBlogContent } from '@/lib/formatContent';
 import { toast } from 'sonner';
+import { CalloutExtension } from './extensions/CalloutExtension';
 
 interface RichTextEditorProps {
   content: string;
@@ -31,6 +32,7 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           rel: 'noopener noreferrer',
         },
       }),
+      CalloutExtension,
     ],
     content,
     onUpdate: ({ editor }) => {

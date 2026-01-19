@@ -71,8 +71,8 @@ export function formatBlogContent(html: string): string {
   content = content.replace(/<strong>\s*<\/strong>/gi, '');
   content = content.replace(/<em>\s*<\/em>/gi, '');
 
-  // 14. Remover atributos desnecessários
-  content = content.replace(/\s*(id|name|data-[^=]*)="[^"]*"/gi, '');
+  // 14. Remover atributos desnecessários (mas preservar data-callout)
+  content = content.replace(/\s*(id|name)="[^"]*"/gi, '');
 
   // 15. Trim final
   content = content.trim();

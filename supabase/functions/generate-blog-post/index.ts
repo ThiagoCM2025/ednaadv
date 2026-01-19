@@ -39,6 +39,12 @@ REGRAS DE FORMATAÇÃO OBRIGATÓRIAS:
 6. Comece com um parágrafo introdutório (sem heading)
 7. Termine com um parágrafo conclusivo
 
+BLOCOS DE DESTAQUE (use quando apropriado, máximo 2-3 por artigo):
+- <div data-callout="info"><p>Texto informativo</p></div> - Para informações gerais, curiosidades
+- <div data-callout="tip"><p>Texto de dica</p></div> - Para dicas práticas, sugestões
+- <div data-callout="warning"><p>Texto de atenção</p></div> - Para pontos de atenção, cuidados
+- <div data-callout="important"><p>Texto importante</p></div> - Para avisos críticos, obrigações legais
+
 PROIBIDO:
 - Usar <h1> (reservado para título)
 - Parágrafos com mais de 5 linhas
