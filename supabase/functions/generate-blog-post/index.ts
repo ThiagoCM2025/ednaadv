@@ -29,7 +29,23 @@ serve(async (req) => {
     const systemPrompt = `Você é um especialista em direito imobiliário brasileiro com vasta experiência em advocacia. 
 Crie artigos profissionais, bem estruturados, otimizados para SEO e focados em educação do cliente.
 Use linguagem técnica mas acessível. Inclua exemplos práticos quando relevante.
-Estruture o conteúdo com títulos H2 e H3, parágrafos curtos, listas quando apropriado.`;
+
+REGRAS DE FORMATAÇÃO OBRIGATÓRIAS:
+1. Estruture com <h2> para seções principais (máximo 4-5 seções)
+2. Use <h3> para subseções quando necessário
+3. Cada parágrafo deve ter 2-4 frases (máximo 5 linhas)
+4. Use <strong> para termos jurídicos importantes
+5. Inclua pelo menos 1 lista (<ul> ou <ol>) por artigo
+6. Comece com um parágrafo introdutório (sem heading)
+7. Termine com um parágrafo conclusivo
+
+PROIBIDO:
+- Usar <h1> (reservado para título)
+- Parágrafos com mais de 5 linhas
+- Tags vazias ou <br> desnecessários
+- Estilos inline (style="...")
+- Classes CSS (class="...")
+- &nbsp; ou espaços extras`;
 
     const userPrompt = `Crie um artigo completo e detalhado sobre: "${topic}"
 
@@ -39,7 +55,7 @@ Tamanho: aproximadamente ${wordCount} palavras
 IMPORTANTE: Retorne APENAS um JSON válido (sem markdown, sem \`\`\`json) com esta estrutura exata:
 {
   "title": "Título atraente e otimizado para SEO (max 100 caracteres)",
-  "content": "Conteúdo em HTML bem formatado com tags <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em>. Use parágrafos curtos e estruture bem o conteúdo.",
+  "content": "Conteúdo em HTML bem formatado seguindo as regras de formatação. Use <h2>, <h3>, <p>, <ul>, <li>, <strong>. Parágrafos curtos e bem estruturados.",
   "excerpt": "Resumo envolvente de até 200 caracteres que capture a essência do artigo",
   "metaTitle": "Meta título SEO otimizado (max 60 caracteres)",
   "metaDescription": "Meta descrição SEO com palavra-chave e call-to-action (max 160 caracteres)",
@@ -47,7 +63,7 @@ IMPORTANTE: Retorne APENAS um JSON válido (sem markdown, sem \`\`\`json) com es
   "slug": "slug-otimizado-para-url-sem-acentos"
 }
 
-Garanta que o conteúdo HTML seja válido e bem estruturado.`;
+Garanta que o conteúdo HTML seja válido, limpo e bem estruturado.`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',

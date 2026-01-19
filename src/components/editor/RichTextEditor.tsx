@@ -3,7 +3,9 @@ import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import { EditorToolbar } from './EditorToolbar';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+import { formatBlogContent } from '@/lib/formatContent';
+import { toast } from 'sonner';
 
 interface RichTextEditorProps {
   content: string;
@@ -48,9 +50,25 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
     }
   }, [content, editor]);
 
+  // Função para formatar o conteúdo
+  const handleFormat = useCallback(() => {
+    if (!editor) return;
+    
+    const currentContent = editor.getHTML();
+    const formattedContent = formatBlogContent(currentContent);
+    
+    if (formattedContent !== currentContent) {
+      editor.commands.setContent(formattedContent);
+      onChange(formattedContent);
+      toast.success('Conteúdo formatado com sucesso!');
+    } else {
+      toast.info('O conteúdo já está formatado.');
+    }
+  }, [editor, onChange]);
+
   return (
     <div className="border border-border rounded-lg overflow-hidden bg-card">
-      <EditorToolbar editor={editor} />
+      <EditorToolbar editor={editor} onFormat={handleFormat} />
       <div className="min-h-[400px]">
         <EditorContent editor={editor} />
       </div>
